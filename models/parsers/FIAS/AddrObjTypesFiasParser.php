@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\models\parsers\FIAS;
 
 
-class AddrObjTypesFiasParser extends FiasParser
+class AddrObjTypesFiasParser extends AbstractFiasParser
 {
 
     protected string $elementName = 'ADDRESSOBJECTTYPE';

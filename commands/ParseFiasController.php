@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use app\models\parsers\FIAS\FiasParser;
+use app\models\parsers\FIAS\AbstractFiasParser;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -53,7 +53,7 @@ class ParseFiasController extends Controller
     {
         print 'FILE ' . $filename . PHP_EOL;
 
-        $parser = FiasParser::getParser($filename);
+        $parser = AbstractFiasParser::getParser($filename);
         $parser->parse();
 
         print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;

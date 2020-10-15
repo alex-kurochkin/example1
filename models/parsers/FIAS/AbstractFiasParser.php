@@ -10,7 +10,7 @@ use RuntimeException;
 use SimpleXMLElement;
 use XMLReader;
 
-abstract class FiasParser implements FiasParserInterface
+abstract class AbstractFiasParser implements FiasParserInterface
 {
 
     private int $recordsCount = 0;

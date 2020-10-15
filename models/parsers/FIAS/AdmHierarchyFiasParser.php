@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace app\models\parsers\FIAS;
 
 
-class AdmHierarchyFiasParser extends FiasParser
+class AdmHierarchyFiasParser extends AbstractFiasParser
 {
 
     protected string $elementName = 'ITEM';
