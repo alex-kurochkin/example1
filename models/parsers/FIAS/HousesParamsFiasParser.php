@@ -9,14 +9,4 @@ class HousesParamsFiasParser extends AbstractFiasParser
 {
 
     protected string $elementName = 'PARAM';
-
-    public function parse(): void
-    {
-        foreach ($this->parseXML() as $element) {
-            /** <PARAM ID="22655872" TYPEID="1" VALUE="5510" OBJECTID="1463962" CHANGEID="4065600" UPDATEDATE="2012-04-02" /> */
-
-            print($element->id);
-            print PHP_EOL;
-        }
-    }
 }

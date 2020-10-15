@@ -54,7 +54,15 @@ class ParseFiasController extends Controller
         print 'FILE ' . $filename . PHP_EOL;
 
         $parser = AbstractFiasParser::getParser($filename);
-        $parser->parse();
+
+        foreach ($parser->parse() as $element) {
+
+            foreach ($element as $k => $v) {
+                print $k . ': ' . $v . PHP_EOL;
+            }
+
+            print PHP_EOL;
+        }
 
         print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;
     }

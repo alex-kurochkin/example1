@@ -6,5 +6,5 @@ namespace app\models\parsers\FIAS;
 
 interface FiasParserInterface
 {
-    public function parse(): void;
+    public function parse(): ?\Generator;
 }

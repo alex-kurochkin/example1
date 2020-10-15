@@ -9,14 +9,4 @@ class SteadsParamsFiasParser extends AbstractFiasParser
 {
 
     protected string $elementName = 'PARAM';
-
-    public function parse(): void
-    {
-        foreach ($this->parseXML() as $element) {
-            /** <PARAM ID="470393469" TYPEID="1" VALUE="0261" OBJECTID="84557352" CHANGEID="125536038" UPDATEDATE="2019-12-13" /> */
-
-            print($element->id);
-            print PHP_EOL;
-        }
-    }
 }

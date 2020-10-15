@@ -9,24 +9,4 @@ class AddrObjTypesFiasParser extends AbstractFiasParser
 {
 
     protected string $elementName = 'ADDRESSOBJECTTYPE';
-
-    public function parse(): void
-    {
-        foreach ($this->parseXML() as $element) {
-            /** <ADDRESSOBJECTTYPE
-             * ID="5"
-             * LEVEL="1"
-             * NAME="Автономная область"
-             * SHORTNAME="Аобл"
-             * DESC="Автономная область"
-             * STARTDATE="1900-01-01"
-             * ENDDATE="2015-11-05"
-             * UPDATEDATE="1900-01-01"
-             * ISACTIVE="true"/>
-             */
-
-            print($element->id);
-            print PHP_EOL;
-        }
-    }
 }

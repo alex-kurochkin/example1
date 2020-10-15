@@ -66,7 +66,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
         return str_replace(' ', '', $name);
     }
 
-    protected function parseXML(): ?Generator
+    public function parse(): ?Generator
     {
         while ($this->reader->read() && $this->reader->name !== $this->elementName) {
             continue;
@@ -79,10 +79,9 @@ abstract class AbstractFiasParser implements FiasParserInterface
         }
 
         while ($this->reader->name === $this->elementName) {
-            $el = new SimpleXMLElement($this->reader->readOuterXML());
-            $el = $this->mapper->fromFias($el);
+            $xmlElement = new SimpleXMLElement($this->reader->readOuterXML());
 
-            yield $el;
+            yield $this->mapper->fromFias($xmlElement);
 
             $this->recordsCount++;
 
