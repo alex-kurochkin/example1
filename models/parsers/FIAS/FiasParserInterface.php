@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\models\parsers\FIAS;
 
-interface IFiasParser
+interface FiasParserInterface
 {
     public function parse(): void;
 }

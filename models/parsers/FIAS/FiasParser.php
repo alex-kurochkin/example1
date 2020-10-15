@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace app\models\parsers\FIAS;
 
-abstract class FiasParser implements IFiasParser
+abstract class FiasParser implements FiasParserInterface
 {
 
     private int $recordsCount = 0;
@@ -58,6 +58,9 @@ abstract class FiasParser implements IFiasParser
         if (!$xmlString) {
             return null;
         }
+
+        yield new \SimpleXMLElement($this->reader->readOuterXML());
+        return null;
 
         while ($this->reader->name === $this->elementName) {
             yield new \SimpleXMLElement($this->reader->readOuterXML());
