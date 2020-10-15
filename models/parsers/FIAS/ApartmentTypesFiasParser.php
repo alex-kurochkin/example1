@@ -13,7 +13,6 @@ class ApartmentTypesFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
             /** <APARTMENTTYPE
              * ID="1"
              * NAME="Помещение"
@@ -21,7 +20,8 @@ class ApartmentTypesFiasParser extends FiasParser
              * DESC="Помещение"
              * STARTDATE="1900-01-01"
              * ENDDATE="2079-06-06"
-             * UPDATEDATE="1900-01-01" ISACTIVE="1"/>
+             * UPDATEDATE="1900-01-01"
+             * ISACTIVE="1"/>
              */
 
             $attr = $element->attributes();

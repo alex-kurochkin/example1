@@ -13,9 +13,7 @@ class NormativeDocsFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
-            /** <NORMDOC ID="137" NAME="Постановление" NUMBER="22" DATE="2017-02-09" TYPE="7" KIND="1" UPDATEDATE="2017-12-18" />
-             */
+            /** <NORMDOC ID="137" NAME="Постановление" NUMBER="22" DATE="2017-02-09" TYPE="7" KIND="1" UPDATEDATE="2017-12-18" /> */
 
             $attr = $element->attributes();
 

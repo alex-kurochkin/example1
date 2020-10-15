@@ -13,7 +13,6 @@ class NormativeDocsKindsFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
             /** <NDOCKIND ID="0" NAME="Не определено" /> */
 
             $attr = $element->attributes();

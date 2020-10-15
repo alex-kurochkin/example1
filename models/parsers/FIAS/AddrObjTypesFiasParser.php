@@ -13,7 +13,6 @@ class AddrObjTypesFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
             /** <ADDRESSOBJECTTYPE
              * ID="5"
              * LEVEL="1"

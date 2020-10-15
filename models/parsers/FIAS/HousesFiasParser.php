@@ -13,8 +13,8 @@ class HousesFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
-            /** <HOUSE ID="2911"
+            /** <HOUSE
+             * ID="2911"
              * OBJECTID="1465592"
              * OBJECTGUID="92158079-3e75-47f5-af2b-0680dce54faa"
              * CHANGEID="4068858"
@@ -26,7 +26,8 @@ class HousesFiasParser extends FiasParser
              * STARTDATE="1900-01-01"
              * ENDDATE="2013-01-01"
              * UPDATEDATE="2012-03-13"
-             * ISACTIVE="0" ISACTUAL="0" />
+             * ISACTIVE="0"
+             * ISACTUAL="0" />
              */
 
             $attr = $element->attributes();

@@ -13,15 +13,16 @@ class ApartmentsFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
-            /** <APARTMENT ID="13508747"
+            /** <APARTMENT
+             * ID="13508747"
              * OBJECTID="23890287"
              * OBJECTGUID="f102626c-5427-4051-aca8-5f674e28e3a5"
              * CHANGEID="37083410"
              * NUMBER="93"
              * APARTTYPE="2"
              * OPERTYPEID="10"
-             * PREVID="0" NEXTID="0"
+             * PREVID="0"
+             * NEXTID="0"
              * STARTDATE="2017-04-07"
              * ENDDATE="2079-06-06"
              * UPDATEDATE="2017-04-07"

@@ -13,8 +13,8 @@ class AdmHierarchyFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
-            /** <ITEM ID="1879825"
+            /** <ITEM
+             * ID="1879825"
              * OBJECTID="67371563"
              * CHANGEID="100443892"
              * PARENTOBJID="1285"

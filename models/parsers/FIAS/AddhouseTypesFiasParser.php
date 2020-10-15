@@ -13,7 +13,6 @@ class AddhouseTypesFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
             /** <HOUSETYPE ID="1" NAME="Корпус" SHORTNAME="к." DESC="Корпус" STARTDATE="2015-12-25" ENDDATE="2079-06-06" UPDATEDATE="2015-12-25" ISACTIVE="true" /> */
 
             $attr = $element->attributes();

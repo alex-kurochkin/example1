@@ -13,7 +13,6 @@ class AddrObjFiasParser extends FiasParser
     public function parse(): void
     {
         foreach ($this->parseXML() as $element) {
-
             /** <OBJECT
              * ID="1182747"
              * OBJECTID="951811"
