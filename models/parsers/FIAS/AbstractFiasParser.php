@@ -21,15 +21,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     public static function getParser(string $filename): self
     {
-        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', basename($filename), $m);
-
-        if (2 !== count($m)) {
-            throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
-        }
-
-        $name = str_replace('_', ' ', $m[1]);
-        $name = ucwords(strtolower($name));
-        $name = str_replace(' ', '', $name);
+        $name = self::parseFilename($filename);
 
         $c = __NAMESPACE__ . '\\' . $name . 'FiasParser';
 
@@ -51,6 +43,20 @@ abstract class AbstractFiasParser implements FiasParserInterface
         //$this->reader->open('compress.zlib://' . $fn);
 
         $this->reader->open('file://' . $file);
+    }
+
+    private static function parseFilename(string $filename): string
+    {
+        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', basename($filename), $m);
+
+        if (2 !== count($m)) {
+            throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
+        }
+
+        $name = str_replace('_', ' ', $m[1]);
+        $name = ucwords(strtolower($name));
+
+        return str_replace(' ', '', $name);
     }
 
     protected function parseXML(): ?Generator
