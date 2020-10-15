@@ -8,7 +8,7 @@ namespace app\models\parsers\FIAS;
 class AddrObjParamsFiasParser extends FiasParser
 {
 
-    protected string $elName = 'PARAM';
+    protected string $elementName = 'PARAM';
 
     public function parse(): void
     {

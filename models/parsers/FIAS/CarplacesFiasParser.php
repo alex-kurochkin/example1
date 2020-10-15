@@ -8,7 +8,7 @@ namespace app\models\parsers\FIAS;
 class CarplacesFiasParser extends FiasParser
 {
 
-    protected string $elName = 'CARPLACE';
+    protected string $elementName = 'CARPLACE';
 
     public function parse(): void
     {

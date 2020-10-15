@@ -11,7 +11,7 @@ abstract class FiasParser implements IFiasParser
 
     private \XMLReader $reader;
 
-    protected string $elName;
+    protected string $elementName;
 
     public static function getParser(string $filename): self
     {
@@ -49,7 +49,7 @@ abstract class FiasParser implements IFiasParser
 
     protected function parseXML(): ?\Generator
     {
-        while ($this->reader->read() && $this->reader->name !== $this->elName) {
+        while ($this->reader->read() && $this->reader->name !== $this->elementName) {
             continue;
         }
 
@@ -59,12 +59,12 @@ abstract class FiasParser implements IFiasParser
             return null;
         }
 
-        while ($this->reader->name === $this->elName) {
+        while ($this->reader->name === $this->elementName) {
             yield new \SimpleXMLElement($this->reader->readOuterXML());
 
             $this->recordsCount++;
 
-            $this->reader->next($this->elName);
+            $this->reader->next($this->elementName);
         }
 
         $this->reader->close();

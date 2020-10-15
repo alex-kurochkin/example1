@@ -8,7 +8,7 @@ namespace app\models\parsers\FIAS;
 class ReestrObjectsFiasParser extends FiasParser
 {
 
-    protected string $elName = 'OBJECT';
+    protected string $elementName = 'OBJECT';
 
     public function parse(): void
     {

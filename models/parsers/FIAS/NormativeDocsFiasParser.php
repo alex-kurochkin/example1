@@ -8,7 +8,7 @@ namespace app\models\parsers\FIAS;
 class NormativeDocsFiasParser extends FiasParser
 {
 
-    protected string $elName = 'NORMDOC';
+    protected string $elementName = 'NORMDOC';
 
     public function parse(): void
     {

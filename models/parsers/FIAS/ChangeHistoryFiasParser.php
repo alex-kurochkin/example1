@@ -8,7 +8,7 @@ namespace app\models\parsers\FIAS;
 class ChangeHistoryFiasParser extends FiasParser
 {
 
-    protected string $elName = 'ITEM';
+    protected string $elementName = 'ITEM';
 
     public function parse(): void
     {
