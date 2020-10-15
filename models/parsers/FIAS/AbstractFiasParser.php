@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace app\models\parsers\FIAS;
 
+use app\models\parsers\FIAS\mappers\AbstractFiasMapper;
+use app\models\parsers\FIAS\mappers\FiasMapperInterface;
 use Generator;
 use InvalidArgumentException;
 use RuntimeException;
@@ -19,6 +21,8 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     protected string $elementName;
 
+    protected FiasMapperInterface $mapper;
+
     public static function getParser(string $filename): self
     {
         $name = self::parseFilename($filename);
@@ -29,20 +33,23 @@ abstract class AbstractFiasParser implements FiasParserInterface
             throw new RuntimeException('No such FIAS parser found: ' . $c);
         }
 
-        return new $c($filename);
+        $mapper = AbstractFiasMapper::getMapper($name);
+
+        return new $c($filename, $mapper);
     }
 
-    protected function __construct($file)
+    protected function __construct(string $filename, FiasMapperInterface $mapper)
     {
-        $this->setReader($file);
+        $this->mapper = $mapper;
+        $this->setReader($filename);
     }
 
-    private function setReader(string $file): void
+    private function setReader(string $filename): void
     {
         $this->reader = new XMLReader();
-        //$this->reader->open('compress.zlib://' . $fn);
+        //$this->reader->open('compress.zlib://' . $filename);
 
-        $this->reader->open('file://' . $file);
+        $this->reader->open('file://' . $filename);
     }
 
     private static function parseFilename(string $filename): string
@@ -71,11 +78,11 @@ abstract class AbstractFiasParser implements FiasParserInterface
             return null;
         }
 
-        yield new SimpleXMLElement($this->reader->readOuterXML());
-        return null;
-
         while ($this->reader->name === $this->elementName) {
-            yield new SimpleXMLElement($this->reader->readOuterXML());
+            $el = new SimpleXMLElement($this->reader->readOuterXML());
+            $el = $this->mapper->fromFias($el);
+
+            yield $el;
 
             $this->recordsCount++;
 
