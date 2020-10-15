@@ -15,7 +15,7 @@ abstract class FiasParser implements IFiasParser
 
     public static function getParser(string $filename): self
     {
-        preg_match('/AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
+        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', basename($filename), $m);
 
         if (2 !== count($m)) {
             throw new \InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
@@ -51,6 +51,12 @@ abstract class FiasParser implements IFiasParser
     {
         while ($this->reader->read() && $this->reader->name !== $this->elName) {
             continue;
+        }
+
+        $xmlString = $this->reader->readOuterXML();
+
+        if (!$xmlString) {
+            return null;
         }
 
         while ($this->reader->name === $this->elName) {
