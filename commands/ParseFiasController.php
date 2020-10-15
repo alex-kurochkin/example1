@@ -56,6 +56,6 @@ class ParseFiasController extends Controller
         $parser = FiasParser::getParser($filename);
         $parser->parse();
 
-        print 'Number of items: ' . $parser->getCountIx() . PHP_EOL;
+        print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;
     }
 }
