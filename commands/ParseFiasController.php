@@ -15,23 +15,18 @@ class ParseFiasController extends Controller
     {
         $startTime = microtime(true);
 
-        $sourceDir = '/media/alex/C682E07882E06E7D/FIAS/XML/55/';
+        $sourceRootDir = \Yii::$app->params['fiasSourceRootDir'];
 
-        foreach (glob($sourceDir . '*.[xX][mM][lL]') as $filename) {
-            $parser = FiasParser::getParser($filename);
-            $parser->parse();
+        foreach (glob($sourceRootDir . '/*') as $fn) {
 
-            print $filename . PHP_EOL;
-            print 'Number of items: ' . $parser->getCountIx() . PHP_EOL;
-//            break;
+            if (is_dir($fn) && preg_match('/^\d{2}$/', basename($fn))) {
+                $this->parseSourceDir($fn);
+            }
+
+            if (is_file($fn) && preg_match('/^.+\.xml$/i', basename($fn))) {
+                $this->parseFile($fn);
+            }
         }
-
-//        $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_ADDR_OBJ_20201010_d0ad0605-d3f2-436e-a48b-df84e340f59e.XML';
-//        $parser = new AddrObjFiasParser($fn);
-//        $parser->parse();
-//        $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_HOUSES_PARAMS_20201010_79d23bd0-468a-4cea-9128-9821fc53af01.XML';
-//        $parser = new HousesParamsFIASParser($fn);
-//        $parser->parse();
 
         $endTime = microtime(true);
 
@@ -43,6 +38,26 @@ class ParseFiasController extends Controller
         print 'Time: ' . ($endTime - $startTime) . PHP_EOL;
 
         return ExitCode::OK;
+    }
+
+    private function parseSourceDir(string $sourceDir): void
+    {
+        print 'DIR ' . $sourceDir . PHP_EOL;
+
+        foreach (glob($sourceDir . '/*.[xX][mM][lL]') as $filename) {
+
+            $this->parseFile($filename);
+        }
+    }
+
+    private function parseFile(string $filename): void
+    {
+        print 'FILE ' . $filename . PHP_EOL;
+
+        $parser = FiasParser::getParser($filename);
+        $parser->parse();
+
+        print 'Number of items: ' . $parser->getCountIx() . PHP_EOL;
     }
 }
 
