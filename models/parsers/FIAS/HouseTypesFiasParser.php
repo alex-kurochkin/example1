@@ -15,9 +15,7 @@ class HouseTypesFiasParser extends AbstractFiasParser
         foreach ($this->parseXML() as $element) {
             /** <HOUSETYPE ID="1" NAME="Владение" SHORTNAME="влд." DESC="Владение" STARTDATE="1900-01-01" ENDDATE="2015-11-05" UPDATEDATE="1900-01-01" ISACTIVE="false" /> */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

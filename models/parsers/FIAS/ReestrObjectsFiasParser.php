@@ -23,9 +23,7 @@ class ReestrObjectsFiasParser extends AbstractFiasParser
              * UPDATEDATE="2020-08-17" />
              */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->OBJECTID);
+            print($element->object_id);
             print PHP_EOL;
         }
     }

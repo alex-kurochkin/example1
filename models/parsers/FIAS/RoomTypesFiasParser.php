@@ -15,9 +15,7 @@ class RoomTypesFiasParser extends AbstractFiasParser
         foreach ($this->parseXML() as $element) {
             /** <ROOMTYPE ID="0" NAME="Не определено" DESC="Не определено" STARTDATE="1900-01-01" ENDDATE="2015-11-05" UPDATEDATE="2011-01-01" ISACTIVE="true" /> */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

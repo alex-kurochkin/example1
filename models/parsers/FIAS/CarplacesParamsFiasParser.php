@@ -15,9 +15,7 @@ class CarplacesParamsFiasParser extends AbstractFiasParser
         foreach ($this->parseXML() as $element) {
             /** <PARAM ID="133240963" TYPEID="5" VALUE="450105" OBJECTID="21716952" CHANGEID="33904555" UPDATEDATE="2019-09-12" /> */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

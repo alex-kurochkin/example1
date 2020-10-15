@@ -16,9 +16,7 @@ class ApartmentsParamsFiasParser extends AbstractFiasParser
             /** <PARAM ID="23023523" TYPEID="5" VALUE="385130" OBJECTID="1521782" CHANGEID="4155266" UPDATEDATE="2017-11-14" />
              */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

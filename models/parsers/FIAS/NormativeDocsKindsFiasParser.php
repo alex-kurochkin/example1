@@ -15,9 +15,7 @@ class NormativeDocsKindsFiasParser extends AbstractFiasParser
         foreach ($this->parseXML() as $element) {
             /** <NDOCKIND ID="0" NAME="Не определено" /> */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

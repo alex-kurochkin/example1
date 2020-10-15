@@ -15,9 +15,7 @@ class NormativeDocsTypesFiasParser extends AbstractFiasParser
         foreach ($this->parseXML() as $element) {
             /** <NDOCTYPE ID="0" NAME="Не указан" STARTDATE="1900-01-01" ENDDATE="2016-03-31" /> */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

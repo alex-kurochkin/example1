@@ -28,9 +28,7 @@ class SteadsFiasParser extends AbstractFiasParser
              * ISACTUAL="1" />
              */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

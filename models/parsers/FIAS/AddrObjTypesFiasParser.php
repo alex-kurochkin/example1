@@ -25,9 +25,7 @@ class AddrObjTypesFiasParser extends AbstractFiasParser
              * ISACTIVE="true"/>
              */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }

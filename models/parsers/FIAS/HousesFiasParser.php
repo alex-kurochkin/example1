@@ -30,9 +30,7 @@ class HousesFiasParser extends AbstractFiasParser
              * ISACTUAL="0" />
              */
 
-            $attr = $element->attributes();
-
-            print((string)$attr->ID);
+            print($element->id);
             print PHP_EOL;
         }
     }
