@@ -7,7 +7,7 @@ namespace app\models\parsers\FIAS;
 abstract class FiasParser implements IFiasParser
 {
 
-    private int $countIx = 0;
+    private int $recordsCount = 0;
 
     private \XMLReader $reader;
 
@@ -62,7 +62,7 @@ abstract class FiasParser implements IFiasParser
         while ($this->reader->name === $this->elName) {
             yield new \SimpleXMLElement($this->reader->readOuterXML());
 
-            $this->countIx++;
+            $this->recordsCount++;
 
             $this->reader->next($this->elName);
         }
@@ -73,8 +73,8 @@ abstract class FiasParser implements IFiasParser
     /**
      * @return int
      */
-    public function getCountIx(): int
+    public function getRecordsCount(): int
     {
-        return $this->countIx;
+        return $this->recordsCount;
     }
 }
