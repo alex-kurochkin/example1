@@ -29,16 +29,16 @@ class AddressObjects extends AbstractFiasModel
         'isActual' => 'is_actual',
     ];
 
-    protected int $id;
-    protected int $objectId;
-    protected int $objectGuid;
-    protected int $changeId;
+    protected string $id;
+    protected string $objectId;
+    protected string $objectGuid;
+    protected string $changeId;
     protected string $name;
     protected string $typeName;
-    protected int $level;
-    protected int $operationTypeId;
-    protected int $prevId;
-    protected int $nextId;
+    protected string $level;
+    protected string $operationTypeId;
+    protected string $prevId;
+    protected string $nextId;
     protected DateTime $startDate;
     protected DateTime $endDate;
     protected DateTime $updateDate;
