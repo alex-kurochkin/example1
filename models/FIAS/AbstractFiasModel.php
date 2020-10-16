@@ -21,7 +21,7 @@ abstract class AbstractFiasModel extends Model // or ActiveRecord?
      * @return int
      * @throws FiasModelException
      */
-    public function loadMany(array $records): int
+    public function saveMany(array $records): int
     {
         if (!count($records)) {
             return 0;

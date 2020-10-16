@@ -54,7 +54,7 @@ class DataDbLoaderService
     private function save(): void
     {
         try {
-            $this->model->loadMany($this->recordsPull);
+            $this->model->saveMany($this->recordsPull);
             $this->recordsPull = [];
         } catch (Exception $e) {
             throw new LoaderServiceException(__CLASS__ . ' can not save data portion ' . $e->getMessage());
