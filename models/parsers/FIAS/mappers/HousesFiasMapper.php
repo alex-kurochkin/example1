@@ -31,7 +31,41 @@ class HousesFiasMapper extends AbstractFiasMapper
         'OBJECTGUID' => 'object_guid',
         'CHANGEID' => 'change_id',
         'HOUSENUM' => 'house_number',
-        'HOUSETYPE' => 'house_type',
+        'ADDNUM1' => [
+            'name' => 'additional_number_1',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
+        'ADDNUM2' => [
+            'name' => 'additional_number_2',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
+        'HOUSETYPE' => [
+            'name' => 'house_type',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
+        'ADDTYPE1' => [
+            'name' => 'additional_type_1',
+            'value' => [
+                'type' => 'int',
+                'nullable' => true,
+            ]
+        ],
+        'ADDTYPE2' => [
+            'name' => 'additional_type_2',
+            'value' => [
+                'type' => 'int',
+                'nullable' => true,
+            ]
+        ],
         'OPERTYPEID' => 'operation_type_id',
         'PREVID' => [
             'name' => 'prev_id',
