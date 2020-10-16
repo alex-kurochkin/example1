@@ -33,8 +33,20 @@ class HousesFiasMapper extends AbstractFiasMapper
         'HOUSENUM' => 'house_number',
         'HOUSETYPE' => 'house_type',
         'OPERTYPEID' => 'operation_type_id',
-        'PREVID' => 'prev_id',
-        'NEXTID' => 'next_id',
+        'PREVID' => [
+            'name' => 'prev_id',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
+        'NEXTID' => [
+            'name' => 'next_id',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
         'STARTDATE' => 'start_date',
         'ENDDATE' => 'end_date',
         'UPDATEDATE' => 'update_date',

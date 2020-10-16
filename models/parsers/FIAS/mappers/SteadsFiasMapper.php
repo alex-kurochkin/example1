@@ -30,7 +30,13 @@ class SteadsFiasMapper extends AbstractFiasMapper
         'CHANGEID' => 'change_id',
         'NUMBER' => 'number',
         'OPERTYPEID' => 'operation_type_id',
-        'NEXTID' => 'next_id',
+        'NEXTID' => [
+            'name' => 'next_id',
+            'value' => [
+                'type' => 'string',
+                'nullable' => true,
+            ]
+        ],
         'STARTDATE' => 'start_date',
         'ENDDATE' => 'end_date',
         'UPDATEDATE' => 'update_date',

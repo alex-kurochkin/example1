@@ -18,8 +18,17 @@ abstract class AbstractFiasMapper implements FiasMapperInterface
         $attributes = $record->attributes();
 
         $result = [];
-        foreach ($this->map as $k => $v) {
-            $result[$v] = (string)$attributes->$k;
+        foreach ($this->map as $sourceFieldName => $rule) {
+            $value = (string)$attributes->$sourceFieldName;
+
+            if (is_array($rule)) {
+                $fieldName = $rule['name'];
+                $value = $this->castValueType($value, $rule['value']);
+            } else {
+                $fieldName = $rule;
+            }
+
+            $result[$fieldName] = $value;
         }
 
         return (object)$result;
@@ -34,5 +43,23 @@ abstract class AbstractFiasMapper implements FiasMapperInterface
         }
 
         return new $c;
+    }
+
+    private function castValueType(string $value, array $v)
+    {
+        if (!$value && isset($v['nullable']) && $v['nullable']) {
+            return null;
+        }
+
+        switch ($v['type']) {
+            case 'int':
+                return (int)$value;
+            case 'float':
+                return (float)$value;
+            case 'bool':
+                return (bool)$value;
+        }
+
+        return $value;
     }
 }
