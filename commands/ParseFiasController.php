@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use app\models\FIAS\AddressObjects;
 use app\models\parsers\FIAS\AbstractFiasParser;
+use app\services\DataDbLoaderService;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
 class ParseFiasController extends Controller
 {
+
+    private DataDbLoaderService $dataLoader;
 
     public function actionIndex(): int
     {
@@ -17,16 +21,23 @@ class ParseFiasController extends Controller
 
         $sourceRootDir = \Yii::$app->params['fiasSourceRootDir'];
 
-        foreach (glob($sourceRootDir . '/*') as $fn) {
+        /** test DataDbLoaderService for one file */
+        $model = new AddressObjects();
+        $this->dataLoader = new DataDbLoaderService($model);
+        $this->parseFile(
+            '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_ADDR_OBJ_20201010_d0ad0605-d3f2-436e-a48b-df84e340f59e.XML'
+        );
 
-            if (is_dir($fn) && preg_match('/^\d{2}$/', basename($fn))) {
-                $this->parseSourceDir($fn);
-            }
-
-            if (is_file($fn) && preg_match('/^.+\.xml$/i', basename($fn))) {
-                $this->parseFile($fn);
-            }
-        }
+//        foreach (glob($sourceRootDir . '/*') as $fn) {
+//
+//            if (is_dir($fn) && preg_match('/^\d{2}$/', basename($fn))) {
+//                $this->parseSourceDir($fn);
+//            }
+//
+//            if (is_file($fn) && preg_match('/^.+\.xml$/i', basename($fn))) {
+//                $this->parseFile($fn);
+//            }
+//        }
 
         $endTime = microtime(true);
 
@@ -44,7 +55,6 @@ class ParseFiasController extends Controller
         print 'DIR ' . $sourceDir . PHP_EOL;
 
         foreach (glob($sourceDir . '/*.[xX][mM][lL]') as $filename) {
-
             $this->parseFile($filename);
         }
     }
@@ -56,12 +66,7 @@ class ParseFiasController extends Controller
         $parser = AbstractFiasParser::getParser($filename);
 
         foreach ($parser->parse() as $element) {
-
-            foreach ($element as $k => $v) {
-                print $k . ': ' . $v . PHP_EOL;
-            }
-
-            print PHP_EOL;
+            $this->dataLoader->load($element);
         }
 
         print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;
