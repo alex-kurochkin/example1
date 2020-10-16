@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace app\services;
 
+use app\exceptions\LoaderServiceException;
 use app\models\FIAS\AbstractFiasModel;
+use Exception;
 use stdClass;
 
 class DataDbLoaderService
@@ -21,23 +23,41 @@ class DataDbLoaderService
         $this->model = $model;
     }
 
-    public function __destruct()
+    private function __clone()
     {
-        $this->write();
     }
 
+    /**
+     * @throws LoaderServiceException
+     */
+    public function __destruct()
+    {
+        $this->save();
+    }
+
+    /**
+     * @param stdClass $record
+     * @throws LoaderServiceException
+     */
     public function load(stdClass $record): void
     {
         $this->recordsPull[] = $record;
 
         if (count($this->recordsPull) >= $this->maxWritePullCount) {
-            $this->write();
+            $this->save();
         }
     }
 
-    private function write(): void
+    /**
+     * @throws LoaderServiceException
+     */
+    private function save(): void
     {
-        $this->model->loadMany($this->recordsPull);
-        $this->recordsPull = [];
+        try {
+            $this->model->loadMany($this->recordsPull);
+            $this->recordsPull = [];
+        } catch (Exception $e) {
+            throw new LoaderServiceException(__CLASS__ . ' can not save data portion ' . $e->getMessage());
+        }
     }
 }
