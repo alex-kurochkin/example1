@@ -6,7 +6,7 @@ namespace app\models\FIAS;
 
 use DateTime;
 
-class AddressObjects extends AbstractFiasModel
+class AddressObject extends AbstractFiasModel
 {
 
     protected string $tableName = 'AddressObjects';
