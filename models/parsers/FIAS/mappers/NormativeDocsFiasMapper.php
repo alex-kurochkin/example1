@@ -18,5 +18,10 @@ class NormativeDocsFiasMapper extends AbstractFiasMapper
         'TYPE' => 'type',
         'KIND' => 'kind',
         'UPDATEDATE' => 'update_date',
+        'ORGNAME' => 'org_name', // government agency
+        'REGNUM' => 'reg_num',
+        'REGDATE' => 'reg_date',
+        'ACCDATE' => 'acc_date', // Date of entry into force of the regulatory document
+        'COMMENT' => 'comment',
     ];
 }

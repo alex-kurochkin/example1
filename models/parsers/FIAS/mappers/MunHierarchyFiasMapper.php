@@ -20,5 +20,7 @@ class MunHierarchyFiasMapper extends AbstractFiasMapper
         'UPDATEDATE' => 'update_date',
         'ISACTIVE' => 'is_active',
         'OKTMO' => 'oktmo',
+        'PREVID' => 'prev_id',
+        'NEXTID' => 'next_id',
     ];
 }

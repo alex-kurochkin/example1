@@ -30,5 +30,12 @@ class AdmHierarchyFiasMapper extends AbstractFiasMapper
         'UPDATEDATE' => 'update_date',
         'ISACTIVE' => 'is_active',
         'REGIONCODE' => 'region_code',
+        'AREACODE' => 'area_code',
+        'CITYCODE' => 'city_code',
+        'PLACECODE' => 'place_code',
+        'PLANCODE' => 'plan_code',
+        'STREETCODE' => 'street_code',
+        'PREVID' => 'prev_id',
+        'NEXTID' => 'next_id',
     ];
 }

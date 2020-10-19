@@ -13,6 +13,7 @@ class RoomTypesFiasMapper extends AbstractFiasMapper
     protected array $map = [
         'ID' => 'id',
         'NAME' => 'name',
+        'SHORTNAME' => 'short_name',
         'DESC' => 'desc',
         'STARTDATE' => 'start_date',
         'ENDDATE' => 'end_date',

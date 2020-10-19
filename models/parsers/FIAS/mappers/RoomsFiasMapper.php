@@ -30,7 +30,7 @@ class RoomsFiasMapper extends AbstractFiasMapper
         'OBJECTID' => 'object_id',
         'OBJECTGUID' => 'object_guid',
         'CHANGEID' => 'change_id',
-        'NUMBER' => 'number',
+        'NUMBER' => 'number', // in the docs: ROOMNUMBER
         'ROOMTYPE' => 'room_type',
         'OPERTYPEID' => 'operation_type_id',
         'PREVID' => [

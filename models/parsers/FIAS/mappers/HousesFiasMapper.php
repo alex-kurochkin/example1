@@ -26,10 +26,28 @@ class HousesFiasMapper extends AbstractFiasMapper
      */
 
     protected array $map = [
-        'ID' => 'id',
-        'OBJECTID' => 'object_id',
+        'ID' => [
+            'name' => 'id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
+        'OBJECTID' => [
+            'name' => 'object_id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'OBJECTGUID' => 'object_guid',
-        'CHANGEID' => 'change_id',
+        'CHANGEID' => [
+            'name' => 'change_id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'HOUSENUM' => 'house_number',
         'ADDNUM1' => [
             'name' => 'additional_number_1',
@@ -70,14 +88,14 @@ class HousesFiasMapper extends AbstractFiasMapper
         'PREVID' => [
             'name' => 'prev_id',
             'value' => [
-                'type' => 'string',
+                'type' => 'int',
                 'nullable' => true,
             ]
         ],
         'NEXTID' => [
             'name' => 'next_id',
             'value' => [
-                'type' => 'string',
+                'type' => 'int',
                 'nullable' => true,
             ]
         ],
