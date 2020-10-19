@@ -34,7 +34,7 @@ class AddrObjFiasMapper extends AbstractFiasMapper
         'NAME' => 'name',
         'TYPENAME' => 'type_name',
         'LEVEL' => [
-            'name' => 'string',
+            'name' => 'level',
             'value' => [
                 'type' => 'int',
                 'nullable' => false,
