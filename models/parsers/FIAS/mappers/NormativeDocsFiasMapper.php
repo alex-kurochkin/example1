@@ -8,8 +8,6 @@ namespace app\models\parsers\FIAS\mappers;
 class NormativeDocsFiasMapper extends AbstractFiasMapper
 {
 
-    /** <NORMDOC ID="137" NAME="Постановление" NUMBER="22" DATE="2017-02-09" TYPE="7" KIND="1" UPDATEDATE="2017-12-18" /> */
-
     protected array $map = [
         'ID' => 'id',
         'NAME' => 'name',
