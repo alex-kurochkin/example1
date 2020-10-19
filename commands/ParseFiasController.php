@@ -16,6 +16,37 @@ class ParseFiasController extends Controller
 
     private DataDbLoaderService $dataLoader;
 
+    private array $mapperToModel = [
+        'AddhouseTypesFiasMapper' => 'HouseType',
+        'AddrObjDivisionFiasMapper' => 'AddressObjectDivision',
+        'AddrObjFiasMapper' => 'AddressObject',
+        'AddrObjParamsFiasMapper' => 'AddressObjectParam',
+        'AddrObjTypesFiasMapper' => 'AddressObjectType',
+        'AdmHierarchyFiasMapper' => 'AdministrativeHierarchy',
+        'ApartmentsFiasMapper' => 'Apartment',
+        'ApartmentsParamsFiasMapper' => 'ApartmentParam',
+        'ApartmentTypesFiasMapper' => 'ApartmentType',
+        'CarplacesFiasMapper' => 'Carplace',
+        'CarplacesParamsFiasMapper' => 'CarplaceParam',
+        'ChangeHistoryFiasMapper' => 'ChangeHistory',
+        'HousesFiasMapper' => 'House',
+        'HousesParamsFiasMapper' => 'HouseParam',
+        'HouseTypesFiasMapper' => 'HouseType',
+        'MunHierarchyFiasMapper' => 'MunicipalityHierarchy',
+        'NormativeDocsFiasMapper' => 'NormativeDoc',
+        'NormativeDocsKindsFiasMapper' => 'NormativeDocKind',
+        'NormativeDocsTypesFiasMapper' => 'NormativeDocType',
+        'ObjectLevelsFiasMapper' => 'ObjectLevel',
+        'OperationTypesFiasMapper' => 'OperationType',
+        'ParamTypesFiasMapper' => 'ParamType',
+        'ReestrObjectsFiasMapper' => 'RegistryObject',
+        'RoomsFiasMapper' => 'Room',
+        'RoomsParamsFiasMapper' => 'RoomParam',
+        'RoomTypesFiasMapper' => 'RoomType',
+        'SteadsFiasMapper' => 'Stead',
+        'SteadsParamsFiasMapper' => 'SteadParam',
+    ];
+
     public function actionIndex(): int
     {
         $startTime = microtime(true);
