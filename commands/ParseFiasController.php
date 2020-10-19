@@ -6,7 +6,7 @@ namespace app\commands;
 
 use app\models\FIAS\AddressObject;
 use app\models\FIAS\House;
-use app\models\parsers\FIAS\AbstractFiasParser;
+use app\services\parsers\FIAS\AbstractFiasParser;
 use app\services\DataDbLoaderService;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -26,7 +26,7 @@ class ParseFiasController extends Controller
         $model = new AddressObject();
         $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_ADDR_OBJ_20201010_d0ad0605-d3f2-436e-a48b-df84e340f59e.XML';
 
-//        $model = new Houses();
+//        $model = new House();
 //        $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_HOUSES_20201010_517c7f47-c8e5-418f-be22-8c5ac21b11be.XML';
 
         $this->dataLoader = new DataDbLoaderService($model);
