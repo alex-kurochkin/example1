@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace app\models\FIAS;
 
-use DateTime;
-
 class AddressObject extends AbstractFiasModel
 {
 
@@ -39,9 +37,9 @@ class AddressObject extends AbstractFiasModel
     protected string $operationTypeId;
     protected string $prevId;
     protected string $nextId;
-    protected DateTime $startDate;
-    protected DateTime $endDate;
-    protected DateTime $updateDate;
+    protected \DateTime $startDate;
+    protected \DateTime $endDate;
+    protected \DateTime $updateDate;
     protected bool $isActive;
     protected bool $isActual;
 }
