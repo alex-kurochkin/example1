@@ -6,6 +6,7 @@ namespace app\models\FIAS;
 
 use app\exceptions\FIAS\FiasModelException;
 use Exception;
+use RuntimeException;
 use Yii;
 use yii\base\Model;
 
@@ -15,6 +16,17 @@ abstract class AbstractFiasModel extends Model // or ActiveRecord?
     protected string $tableName;
 
     protected array $map;
+
+    public static function getModel(string $name): self
+    {
+        $c = __NAMESPACE__ . '\\' . $name;
+
+        if (!class_exists($c)) {
+            throw new RuntimeException('No such model found: ' . $c);
+        }
+
+        return new $c();
+    }
 
     /**
      * @param array $records
