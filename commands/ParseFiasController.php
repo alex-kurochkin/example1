@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use app\models\FIAS\AddressObject;
-use app\models\FIAS\House;
+use app\models\FIAS\AbstractFiasModel;
 use app\services\parsers\FIAS\AbstractFiasParser;
 use app\services\DataDbLoaderService;
+use InvalidArgumentException;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -16,35 +16,35 @@ class ParseFiasController extends Controller
 
     private DataDbLoaderService $dataLoader;
 
-    private array $mapperToModel = [
-        'AddhouseTypesFiasMapper' => 'HouseType',
-        'AddrObjDivisionFiasMapper' => 'AddressObjectDivision',
-        'AddrObjFiasMapper' => 'AddressObject',
-        'AddrObjParamsFiasMapper' => 'AddressObjectParam',
-        'AddrObjTypesFiasMapper' => 'AddressObjectType',
-        'AdmHierarchyFiasMapper' => 'AdministrativeHierarchy',
-        'ApartmentsFiasMapper' => 'Apartment',
-        'ApartmentsParamsFiasMapper' => 'ApartmentParam',
-        'ApartmentTypesFiasMapper' => 'ApartmentType',
-        'CarplacesFiasMapper' => 'Carplace',
-        'CarplacesParamsFiasMapper' => 'CarplaceParam',
-        'ChangeHistoryFiasMapper' => 'ChangeHistory',
-        'HousesFiasMapper' => 'House',
-        'HousesParamsFiasMapper' => 'HouseParam',
-        'HouseTypesFiasMapper' => 'HouseType',
-        'MunHierarchyFiasMapper' => 'MunicipalityHierarchy',
-        'NormativeDocsFiasMapper' => 'NormativeDoc',
-        'NormativeDocsKindsFiasMapper' => 'NormativeDocKind',
-        'NormativeDocsTypesFiasMapper' => 'NormativeDocType',
-        'ObjectLevelsFiasMapper' => 'ObjectLevel',
-        'OperationTypesFiasMapper' => 'OperationType',
-        'ParamTypesFiasMapper' => 'ParamType',
-        'ReestrObjectsFiasMapper' => 'RegistryObject',
-        'RoomsFiasMapper' => 'Room',
-        'RoomsParamsFiasMapper' => 'RoomParam',
-        'RoomTypesFiasMapper' => 'RoomType',
-        'SteadsFiasMapper' => 'Stead',
-        'SteadsParamsFiasMapper' => 'SteadParam',
+    private static array $fiasToModel = [
+        'AddhouseTypes' => 'HouseType',
+//        'AddrObjDivision' => 'AddressObjectDivision',
+        'AddrObj' => 'AddressObject',
+//        'AddrObjParams' => 'AddressObjectParam',
+        'AddrObjTypes' => 'AddressObjectType',
+//        'AdmHierarchy' => 'AdministrativeHierarchy',
+//        'Apartments' => 'Apartment',
+//        'ApartmentsParams' => 'ApartmentParam',
+        'ApartmentTypes' => 'ApartmentType',
+//        'Carplaces' => 'Carplace',
+//        'CarplacesParams' => 'CarplaceParam',
+//        'ChangeHistory' => 'ChangeHistory',
+//        'Houses' => 'House',
+//        'HousesParams' => 'HouseParam',
+        'HouseTypes' => 'HouseType',
+//        'MunHierarchy' => 'MunicipalityHierarchy',
+//        'NormativeDocs' => 'NormativeDoc',
+        'NormativeDocsKinds' => 'NormativeDocKind',
+        'NormativeDocsTypes' => 'NormativeDocType',
+        'ObjectLevels' => 'ObjectLevel',
+        'OperationTypes' => 'OperationType',
+        'ParamTypes' => 'ParamType',
+//        'ReestrObjects' => 'RegistryObject',
+//        'Rooms' => 'Room',
+//        'RoomsParams' => 'RoomParam',
+        'RoomTypes' => 'RoomType',
+//        'Steads' => 'Stead',
+//        'SteadsParams' => 'SteadParam',
     ];
 
     public function actionIndex(): int
@@ -53,28 +53,22 @@ class ParseFiasController extends Controller
 
         $sourceRootDir = \Yii::$app->params['fiasSourceRootDir'];
 
-        /** test DataDbLoaderService for one file */
-        $model = new AddressObject();
-        $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_ADDR_OBJ_20201010_d0ad0605-d3f2-436e-a48b-df84e340f59e.XML';
+        foreach (glob($sourceRootDir . '/*') as $filename) {
+            if (is_dir($filename) && preg_match('/^\d{2}$/', basename($filename))) {
+                $this->parseSourceDir($filename);
+            }
 
-//        $model = new House();
-//        $fn = '/media/alex/C682E07882E06E7D/FIAS/XML/55/AS_HOUSES_20201010_517c7f47-c8e5-418f-be22-8c5ac21b11be.XML';
+            if (is_file($filename) && preg_match('/^.+\.xml$/i', basename($filename))) {
+                $modelName = $this->getModelName($filename);
 
-        $this->dataLoader = new DataDbLoaderService($model);
-        $this->parseFile(
-            $fn
-        );
+                if (!$modelName) {
+                    continue;
+                }
 
-//        foreach (glob($sourceRootDir . '/*') as $fn) {
-//
-//            if (is_dir($fn) && preg_match('/^\d{2}$/', basename($fn))) {
-//                $this->parseSourceDir($fn);
-//            }
-//
-//            if (is_file($fn) && preg_match('/^.+\.xml$/i', basename($fn))) {
-//                $this->parseFile($fn);
-//            }
-//        }
+                $model = AbstractFiasModel::getModel(basename($modelName));
+                $this->parseFile($filename, $model);
+            }
+        }
 
         $endTime = microtime(true);
 
@@ -92,13 +86,22 @@ class ParseFiasController extends Controller
         print 'DIR ' . $sourceDir . PHP_EOL;
 
         foreach (glob($sourceDir . '/*.[xX][mM][lL]') as $filename) {
-            $this->parseFile($filename);
+            $modelName = $this->getModelName($filename);
+
+            if (!$modelName) {
+                continue;
+            }
+
+            $model = AbstractFiasModel::getModel($modelName);
+            $this->parseFile($filename, $model);
         }
     }
 
-    private function parseFile(string $filename): void
+    private function parseFile(string $filename, AbstractFiasModel $model): void
     {
         print 'FILE ' . $filename . PHP_EOL;
+
+        $this->dataLoader = new DataDbLoaderService($model);
 
         $parser = AbstractFiasParser::getParser($filename);
 
@@ -107,5 +110,30 @@ class ParseFiasController extends Controller
         }
 
         print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;
+    }
+
+    private function getModelName(string $filename): string
+    {
+        $fiasName = self::parseFilename(basename($filename));
+
+        if (array_key_exists($fiasName, self::$fiasToModel)) {
+            return self::$fiasToModel[$fiasName];
+        }
+
+        return '';
+    }
+
+    private static function parseFilename(string $filename): string
+    {
+        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
+
+        if (2 !== count($m)) {
+            throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
+        }
+
+        $name = str_replace('_', ' ', $m[1]);
+        $name = ucwords(strtolower($name));
+
+        return str_replace(' ', '', $name);
     }
 }
