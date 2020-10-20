@@ -18,7 +18,6 @@ class ApartmentType extends AbstractFiasModel
         'endDate' => 'end_date',
         'updateDate' => 'update_date',
         'isActive' => 'is_active',
-
     ];
 
     protected string $id;
@@ -28,6 +27,5 @@ class ApartmentType extends AbstractFiasModel
     protected \DateTime $startDate;
     protected \DateTime $endDate;
     protected \DateTime $updateDate;
-    protected string $isActive;
-
+    protected bool $isActive;
 }

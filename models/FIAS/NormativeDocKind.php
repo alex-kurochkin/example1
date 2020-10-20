@@ -12,10 +12,8 @@ class NormativeDocKind extends AbstractFiasModel
     protected array $map = [
         'id' => 'id',
         'name' => 'name',
-
     ];
 
     protected string $id;
     protected string $name;
-
 }

@@ -17,7 +17,6 @@ class ObjectLevel extends AbstractFiasModel
         'endDate' => 'end_date',
         'updateDate' => 'update_date',
         'isActive' => 'is_active',
-
     ];
 
     protected string $level;
@@ -26,6 +25,5 @@ class ObjectLevel extends AbstractFiasModel
     protected \DateTime $startDate;
     protected \DateTime $endDate;
     protected \DateTime $updateDate;
-    protected string $isActive;
-
+    protected bool $isActive;
 }
