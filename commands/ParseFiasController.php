@@ -7,7 +7,7 @@ namespace app\commands;
 use app\models\FIAS\AbstractFiasModel;
 use app\services\parsers\FIAS\AbstractFiasParser;
 use app\services\DataDbLoaderService;
-use InvalidArgumentException;
+use app\utils\FIAS\FiasFile;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -114,26 +114,12 @@ class ParseFiasController extends Controller
 
     private function getModelName(string $filename): string
     {
-        $fiasName = self::parseFilename(basename($filename));
+        $fiasName = FiasFile::parseEntityName(basename($filename));
 
         if (array_key_exists($fiasName, self::$fiasToModel)) {
             return self::$fiasToModel[$fiasName];
         }
 
         return '';
-    }
-
-    private static function parseFilename(string $filename): string
-    {
-        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
-
-        if (2 !== count($m)) {
-            throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
-        }
-
-        $name = str_replace('_', ' ', $m[1]);
-        $name = ucwords(strtolower($name));
-
-        return str_replace(' ', '', $name);
     }
 }

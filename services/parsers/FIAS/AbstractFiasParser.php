@@ -6,8 +6,8 @@ namespace app\services\parsers\FIAS;
 
 use app\services\parsers\FIAS\mappers\AbstractFiasMapper;
 use app\services\parsers\FIAS\mappers\FiasMapperInterface;
+use app\utils\FIAS\FiasFile;
 use Generator;
-use InvalidArgumentException;
 use RuntimeException;
 use SimpleXMLElement;
 use XMLReader;
@@ -25,7 +25,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     public static function getParser(string $filename): self
     {
-        $name = self::parseFilename(basename($filename));
+        $name = FiasFile::parseEntityName(basename($filename));
 
         $c = __NAMESPACE__ . '\\' . $name . 'FiasParser';
 
@@ -50,20 +50,6 @@ abstract class AbstractFiasParser implements FiasParserInterface
         //$this->reader->open('compress.zlib://' . $filename);
 
         $this->reader->open('file://' . $filename);
-    }
-
-    private static function parseFilename(string $filename): string
-    {
-        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
-
-        if (2 !== count($m)) {
-            throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
-        }
-
-        $name = str_replace('_', ' ', $m[1]);
-        $name = ucwords(strtolower($name));
-
-        return str_replace(' ', '', $name);
     }
 
     public function parse(): ?Generator
