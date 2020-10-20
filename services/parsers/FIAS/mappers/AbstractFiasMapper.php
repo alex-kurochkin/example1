@@ -57,9 +57,22 @@ abstract class AbstractFiasMapper implements FiasMapperInterface
             case 'float':
                 return (float)$value;
             case 'bool':
-                return (bool)$value;
+                return $this->parseBool($value);
         }
 
         return $value;
+    }
+
+    private function parseBool($value): bool
+    {
+        if ('true' === $value) {
+            return true;
+        }
+
+        if ('false' === $value) {
+            return false;
+        }
+
+        return (bool)$value;
     }
 }
