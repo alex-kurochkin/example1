@@ -25,7 +25,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     public static function getParser(string $filename): self
     {
-        $name = self::parseFilename($filename);
+        $name = self::parseFilename(basename($filename));
 
         $c = __NAMESPACE__ . '\\' . $name . 'FiasParser';
 
@@ -54,7 +54,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     private static function parseFilename(string $filename): string
     {
-        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', basename($filename), $m);
+        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
 
         if (2 !== count($m)) {
             throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
