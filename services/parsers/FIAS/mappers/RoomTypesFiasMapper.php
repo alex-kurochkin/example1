@@ -16,6 +16,11 @@ class RoomTypesFiasMapper extends AbstractFiasMapper
         'STARTDATE' => 'start_date',
         'ENDDATE' => 'end_date',
         'UPDATEDATE' => 'update_date',
-        'ISACTIVE' => 'is_active',
+        'ISACTIVE' => [
+            'name' => 'is_active',
+            'value' => [
+                'type' => 'bool',
+            ]
+        ],
     ];
 }
