@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
+use app\exceptions\LoaderServiceException;
 use app\models\FIAS\AbstractFiasModel;
 use app\services\parsers\FIAS\AbstractFiasParser;
 use app\services\DataDbLoaderService;
@@ -45,6 +46,10 @@ class ParseFiasController extends Controller
 //        'SteadsParams' => 'SteadParam',
     ];
 
+    /**
+     * @return int
+     * @throws LoaderServiceException
+     */
     public function actionIndex(): int
     {
         $startTime = microtime(true);
@@ -79,6 +84,10 @@ class ParseFiasController extends Controller
         return ExitCode::OK;
     }
 
+    /**
+     * @param string $sourceDir
+     * @throws LoaderServiceException
+     */
     private function parseSourceDir(string $sourceDir): void
     {
         print 'DIR ' . $sourceDir . PHP_EOL;
@@ -95,6 +104,11 @@ class ParseFiasController extends Controller
         }
     }
 
+    /**
+     * @param string $filename
+     * @param AbstractFiasModel $model
+     * @throws LoaderServiceException
+     */
     private function parseFile(string $filename, AbstractFiasModel $model): void
     {
         print 'FILE ' . $filename . PHP_EOL;
