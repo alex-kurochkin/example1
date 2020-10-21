@@ -16,7 +16,7 @@ class ParseFiasController extends Controller
 {
 
     private static array $fiasToModel = [
-        'AddhouseTypes' => 'HouseType',
+        'AddhouseTypes' => 'AdditionalHouseType',
 //        'AddrObjDivision' => 'AddressObjectDivision',
         'AddrObj' => 'AddressObject',
 //        'AddrObjParams' => 'AddressObjectParam',
