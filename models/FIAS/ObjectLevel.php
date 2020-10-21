@@ -7,8 +7,6 @@ namespace app\models\FIAS;
 class ObjectLevel extends AbstractFiasModel
 {
 
-    protected string $tableName = 'ObjectLevels';
-
     protected array $map = [
         'level' => 'level',
         'name' => 'name',
@@ -26,4 +24,9 @@ class ObjectLevel extends AbstractFiasModel
     protected \DateTime $endDate;
     protected \DateTime $updateDate;
     protected bool $isActive;
+
+    public static function tableName(): string
+    {
+        return 'ObjectLevels';
+    }
 }

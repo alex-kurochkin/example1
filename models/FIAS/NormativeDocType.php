@@ -7,8 +7,6 @@ namespace app\models\FIAS;
 class NormativeDocType extends AbstractFiasModel
 {
 
-    protected string $tableName = 'NormativeDocTypes';
-
     protected array $map = [
         'id' => 'id',
         'name' => 'name',
@@ -20,4 +18,9 @@ class NormativeDocType extends AbstractFiasModel
     protected string $name;
     protected \DateTime $startDate;
     protected \DateTime $endDate;
+
+    public static function tableName(): string
+    {
+        return 'NormativeDocTypes';
+    }
 }

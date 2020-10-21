@@ -7,8 +7,6 @@ namespace app\models\FIAS;
 class AddressObjectType extends AbstractFiasModel
 {
 
-    protected string $tableName = 'AddressObjectTypes';
-
     protected array $map = [
         'id' => 'id',
         'level' => 'level',
@@ -30,4 +28,9 @@ class AddressObjectType extends AbstractFiasModel
     protected \DateTime $endDate;
     protected \DateTime $updateDate;
     protected bool $isActive;
+
+    public static function tableName(): string
+    {
+        return 'AddressObjectTypes';
+    }
 }

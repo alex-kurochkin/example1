@@ -9,11 +9,10 @@ use Exception;
 use RuntimeException;
 use Yii;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
-abstract class AbstractFiasModel extends Model // or ActiveRecord?
+abstract class AbstractFiasModel extends /*Model*/ ActiveRecord
 {
-
-    protected string $tableName;
 
     protected array $map;
 
@@ -44,7 +43,7 @@ abstract class AbstractFiasModel extends Model // or ActiveRecord?
         try {
             return Yii::$app->db->createCommand()
                 ->batchInsert(
-                    $this->tableName,
+                    static::tableName(),
                     $columns,
                     $records
                 )

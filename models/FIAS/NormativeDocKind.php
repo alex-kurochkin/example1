@@ -7,8 +7,6 @@ namespace app\models\FIAS;
 class NormativeDocKind extends AbstractFiasModel
 {
 
-    protected string $tableName = 'NormativeDocKinds';
-
     protected array $map = [
         'id' => 'id',
         'name' => 'name',
@@ -16,4 +14,9 @@ class NormativeDocKind extends AbstractFiasModel
 
     protected string $id;
     protected string $name;
+
+    public static function tableName(): string
+    {
+        return 'NormativeDocKinds';
+    }
 }

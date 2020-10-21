@@ -7,8 +7,6 @@ namespace app\models\FIAS;
 class HouseType extends AbstractFiasModel
 {
 
-    protected string $tableName = 'HouseTypes';
-
     protected array $map = [
         'id' => 'id',
         'name' => 'name',
@@ -28,4 +26,9 @@ class HouseType extends AbstractFiasModel
     protected \DateTime $endDate;
     protected \DateTime $updateDate;
     protected bool $isActive;
+
+    public static function tableName(): string
+    {
+        return 'HouseTypes';
+    }
 }

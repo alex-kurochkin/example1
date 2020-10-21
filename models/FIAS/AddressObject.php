@@ -22,8 +22,6 @@ class AddressObject extends AbstractFiasModel
     public const ADDITIONAL_TERRITORIES_LEVEL = 90;
     public const ADDITIONAL_TERRITORIES_OBJECTS_LEVEL = 91;
 
-    protected string $tableName = 'AddressObjects';
-
     protected array $map = [
         'id' => 'id',
         'objectId' => 'object_id',
@@ -57,4 +55,9 @@ class AddressObject extends AbstractFiasModel
     protected \DateTime $updateDate;
     protected bool $isActive;
     protected bool $isActual;
+
+    public static function tableName(): string
+    {
+        return 'AddressObjects';
+    }
 }
