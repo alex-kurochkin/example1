@@ -14,8 +14,6 @@ use yii\console\ExitCode;
 class ParseFiasController extends Controller
 {
 
-    private DataDbLoaderService $dataLoader;
-
     private static array $fiasToModel = [
         'AddhouseTypes' => 'HouseType',
 //        'AddrObjDivision' => 'AddressObjectDivision',
@@ -101,12 +99,12 @@ class ParseFiasController extends Controller
     {
         print 'FILE ' . $filename . PHP_EOL;
 
-        $this->dataLoader = new DataDbLoaderService($model);
+        $dataLoader = new DataDbLoaderService($model);
 
         $parser = AbstractFiasParser::getParser($filename);
 
         foreach ($parser->parse() as $element) {
-            $this->dataLoader->load($element);
+            $dataLoader->load($element);
         }
 
         print 'Number of items: ' . $parser->getRecordsCount() . PHP_EOL;
