@@ -8,7 +8,13 @@ class AddhouseTypesFiasMapper extends AbstractFiasMapper
 {
 
     protected array $map = [
-        'ID' => 'id',
+        'ID' => [
+            'name' => 'id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'NAME' => 'name',
         'SHORTNAME' => 'short_name',
         'DESC' => 'desc',

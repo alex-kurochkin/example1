@@ -9,7 +9,13 @@ class AddrObjTypesFiasMapper extends AbstractFiasMapper
 {
 
     protected array $map = [
-        'ID' => 'id',
+        'ID' => [
+            'name' => 'id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'LEVEL' => 'level',
         'NAME' => 'name',
         'SHORTNAME' => 'short_name',

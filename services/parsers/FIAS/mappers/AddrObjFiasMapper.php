@@ -9,10 +9,28 @@ class AddrObjFiasMapper extends AbstractFiasMapper
 {
 
     protected array $map = [
-        'ID' => 'id',
-        'OBJECTID' => 'object_id',
+        'ID' => [
+            'name' => 'id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
+        'OBJECTID' => [
+            'name' => 'object_id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'OBJECTGUID' => 'object_guid',
-        'CHANGEID' => 'change_id',
+        'CHANGEID' => [
+            'name' => 'change_id',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'NAME' => 'name',
         'TYPENAME' => 'type_name',
         'LEVEL' => [
@@ -22,7 +40,7 @@ class AddrObjFiasMapper extends AbstractFiasMapper
                 'nullable' => false,
             ]
         ],
-        'OPERTYPEID' => 'operation_type_id',
+        'OPERTYPEID' => 'operation_type_id', // Text, 2 chars length
         'PREVID' => [
             'name' => 'prev_id',
             'value' => [
