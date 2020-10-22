@@ -12,7 +12,7 @@ use stdClass;
 class DataDbLoaderService
 {
 
-    private int $maxWritePullCount = 1000;
+    private int $maxWritePullCount = 2000;
 
     private array $recordsPull = [];
 
