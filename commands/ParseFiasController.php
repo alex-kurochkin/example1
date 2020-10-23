@@ -18,16 +18,8 @@ class ParseFiasController extends Controller
     private static array $fiasToModel = [
         'AddrObj' => 'AddressObject',
         'AdmHierarchy' => 'AdministrativeHierarchy',
-        'AddhouseTypes' => 'AdditionalHouseType',
         'AddrObjTypes' => 'AddressObjectType',
-        'ApartmentTypes' => 'ApartmentType',
-        'HouseTypes' => 'HouseType',
-        'NormativeDocsKinds' => 'NormativeDocKind',
-        'NormativeDocsTypes' => 'NormativeDocType',
         'ObjectLevels' => 'ObjectLevel',
-        'OperationTypes' => 'OperationType',
-        'ParamTypes' => 'ParamType',
-        'RoomTypes' => 'RoomType',
     ];
 
     /**
