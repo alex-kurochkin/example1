@@ -103,7 +103,7 @@ abstract class AbstractFiasModel extends Model
         $models = [];
 
         foreach ($items as $item) {
-            $models[] = $this->mapToModel($item);
+            $models[] = $this->mapToModelOne($item);
         }
 
         return $models;
@@ -114,7 +114,7 @@ abstract class AbstractFiasModel extends Model
      * @return $this
      * @throws Exception
      */
-    protected function mapToModel(array $item): self
+    protected function mapToModelOne(array $item): self
     {
         $model = clone($this);
 

@@ -137,6 +137,6 @@ class AddressObject extends AbstractFiasModel
             ->andWhere(['is_actual' => 1])
             ->one();
 
-        return $this->mapToModel($object);
+        return $this->mapToModelOne($object);
     }
 }
