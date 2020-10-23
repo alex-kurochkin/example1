@@ -9,7 +9,13 @@ class ObjectLevelsFiasMapper extends AbstractFiasMapper
 {
 
     protected array $map = [
-        'LEVEL' => 'level',
+        'LEVEL' => [
+            'name' => 'level',
+            'value' => [
+                'type' => 'int',
+                'nullable' => false,
+            ]
+        ],
         'NAME' => 'name',
         'SHORTNAME' => 'short_name',
         'STARTDATE' => 'start_date',
