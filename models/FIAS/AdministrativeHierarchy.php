@@ -47,4 +47,23 @@ class AdministrativeHierarchy extends AbstractFiasModel
     {
         return 'AdministrativeHierarchy';
     }
+
+    public function findParentObjectId($objectId): string
+    {
+        /** Probably it's good idea to move it to Repository abstract level */
+        $next = $this->query
+            ->from(self::tableName())
+            ->where(['object_id' => $objectId])
+            ->one();
+
+        if (!$next) {
+            return '';
+        }
+
+        if (array_key_exists('parent_object_id', $next) && $next['parent_object_id']) {
+            return $next['parent_object_id'];
+        }
+
+        return '';
+    }
 }
