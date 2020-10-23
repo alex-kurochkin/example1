@@ -64,6 +64,29 @@ abstract class AbstractFiasModel extends Model
         }
     }
 
+    public function toArray(array $fields = [], array $expand = [], $recursive = true): array
+    {
+        $arrayInstance = [];
+
+        $thisFields = array_keys($this->map);
+
+        foreach ($thisFields as $field) {
+            $value = $this->$field;
+
+            if (is_bool($value)) {
+                $value = $value ? 'true' : 'false';
+            }
+
+            if ($value instanceof \DateTimeInterface) {
+                $value = $value->format('c');
+            }
+
+            $arrayInstance[$field] = $value;
+        }
+
+        return $arrayInstance;
+    }
+
     /**
      * 1. Mapping should be move to model mapper abstract level
      * and using from Repository... probably.
