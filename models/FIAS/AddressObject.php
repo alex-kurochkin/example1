@@ -7,46 +7,6 @@ namespace app\models\FIAS;
 class AddressObject extends AbstractFiasModel
 {
 
-    /*  This constants represent values from ObjectLevels
-        1	Субъект РФ
-        2	Административный район
-        3	Муниципальный район
-        4	Сельское/городское поселение
-        5	Город
-        6	Населенный пункт
-        7	Элемент планировочной структуры
-        8	Элемент улично-дорожной сети
-        9	Земельный участок
-        10	Здание (сооружение)
-        11	Помещение
-        12	Помещения в пределах помещения
-        13	Уровень автономного округа (устаревшее)
-        14	Уровень внутригородской территории (устаревшее)
-        15	Уровень дополнительных территорий (устаревшее)
-        16	Уровень объектов на дополнительных территориях (устаревшее)
-        17	Машино-место
-    */
-
-    // current
-    public const SUBJECT_RF_LEVEL = 1;
-    public const ADMINISTRATIVE_REGION_LEVEL = 2;
-    public const MUNICIPAL_DISTRICT_LEVEL = 3;
-    public const URBAN_RURAL_SETTLEMENTS_LEVEL = 4;
-    public const CITY_LEVEL = 5;
-    public const LOCALITY_LEVEL = 6;
-    public const PLANNING_STRUCTURE_LEVEL = 7;
-    public const ROAD_NETWORK_LEVEL = 8;
-    public const LAND_PLOT_LEVEL = 9;
-    public const HOUSE_LEVEL = 10; // Building as structure
-    public const ROOM_LEVEL = 11;
-    public const ROOM_IN_ROOM_LEVEL = 12;
-    // obsolete
-    public const AUTONOMOUS_OKRUG_LEVEL = 13;
-    public const INTRACITY_LEVEL = 14;
-    public const ADDITIONAL_TERRITORIES_LEVEL = 15;
-    public const ADDITIONAL_TERRITORIES_OBJECT_LEVEL = 16;
-    public const PARKING_LEVEL = 17;
-
     protected array $map = [
         'id' => 'id',
         'objectId' => 'object_id',
@@ -81,8 +41,102 @@ class AddressObject extends AbstractFiasModel
     protected bool $isActive;
     protected bool $isActual;
 
+    private string $fullName;
+
     public static function tableName(): string
     {
         return 'AddressObjects';
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getObjectId(): string
+    {
+        return $this->objectId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeName(): string
+    {
+        return $this->typeName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLevel(): string
+    {
+        return $this->level;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param string $fullName
+     */
+    public function setFullName(string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    public function toArray(array $fields = [], array $expand = [], $recursive = true): array
+    {
+        $arrayInstance = parent::toArray();
+
+        $arrayInstance['fullName'] = $this->fullName;
+
+        return $arrayInstance;
+    }
+
+    public function findCity(string $cityName): array
+    {
+        /** Probably it's good idea to move it to Repository abstract level */
+        $cities = $this->query
+            ->from(self::tableName())
+            ->where(['like', 'name', $cityName . '%', false])
+            ->andWhere(['in', 'type_name', ['г', 'г.', 'с/п', 'с/с', 'пгт']])
+            ->andWhere(['level' => 5])
+            ->andWhere(['is_active' => 1])
+            ->andWhere(['is_actual' => 1])
+            ->all();
+
+        return $this->mapToModelArray($cities);
+    }
+
+    public function findByObjectId(string $objectId): AddressObject
+    {
+        $object = $this->query
+            ->from(self::tableName())
+            ->where(['object_id' => $objectId])
+            ->andWhere(['is_active' => 1])
+            ->andWhere(['is_actual' => 1])
+            ->one();
+
+        return $this->mapToModel($object);
     }
 }
