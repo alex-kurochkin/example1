@@ -35,7 +35,7 @@ abstract class AbstractFiasModel extends Model
             throw new RuntimeException('No such model found: ' . $c);
         }
 
-        return new $c();
+        return new $c(new Query); // Yii2 DI/IoC isn't work here... so sad
     }
 
     /**
@@ -72,10 +72,6 @@ abstract class AbstractFiasModel extends Model
 
         foreach ($thisFields as $field) {
             $value = $this->$field;
-
-            if (is_bool($value)) {
-                $value = $value ? 'true' : 'false';
-            }
 
             if ($value instanceof \DateTimeInterface) {
                 $value = $value->format('c');
@@ -119,8 +115,7 @@ abstract class AbstractFiasModel extends Model
         $model = clone($this);
 
         foreach ($item as $field => $value) {
-            if (array_key_exists($field, $this->mapToModel))
-            {
+            if (array_key_exists($field, $this->mapToModel)) {
                 $modelFieldName = $this->mapToModel[$field];
 
                 if (false !== strpos($modelFieldName, "Date")) {
