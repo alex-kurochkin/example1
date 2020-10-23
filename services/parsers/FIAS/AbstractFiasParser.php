@@ -68,7 +68,6 @@ abstract class AbstractFiasParser implements FiasParserInterface
             $xmlElement = new SimpleXMLElement($this->reader->readOuterXML());
 
             yield $this->mapper->fromFias($xmlElement);
-//            return null;
 
             $this->recordsCount++;
 
