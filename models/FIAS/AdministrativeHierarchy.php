@@ -36,11 +36,11 @@ class AdministrativeHierarchy extends AbstractFiasModel
     protected string $placeCode;
     protected string $planCode;
     protected string $streetCode;
-    protected string $prevId;
-    protected string $nextId;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
-    protected \DateTime $updateDate;
+    protected ?string $prevId;
+    protected ?string $nextId;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
+    protected \DateTimeInterface $updateDate;
     protected bool $isActive;
 
     public static function tableName(): string

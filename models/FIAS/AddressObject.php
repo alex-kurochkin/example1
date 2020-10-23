@@ -73,11 +73,11 @@ class AddressObject extends AbstractFiasModel
     protected string $typeName;
     protected string $level;
     protected string $operationTypeId;
-    protected string $prevId;
-    protected string $nextId;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
-    protected \DateTime $updateDate;
+    protected ?string $prevId;
+    protected ?string $nextId;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
+    protected \DateTimeInterface $updateDate;
     protected bool $isActive;
     protected bool $isActual;
 

@@ -22,9 +22,9 @@ class ParamType extends AbstractFiasModel
     protected string $name;
     protected string $desc;
     protected string $code;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
-    protected \DateTime $updateDate;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
+    protected \DateTimeInterface $updateDate;
     protected bool $isActive;
 
     public static function tableName(): string

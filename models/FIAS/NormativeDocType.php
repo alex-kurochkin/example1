@@ -16,8 +16,8 @@ class NormativeDocType extends AbstractFiasModel
 
     protected string $id;
     protected string $name;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
 
     public static function tableName(): string
     {

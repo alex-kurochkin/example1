@@ -20,9 +20,9 @@ class ObjectLevel extends AbstractFiasModel
     protected string $level;
     protected string $name;
     protected string $shortName;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
-    protected \DateTime $updateDate;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
+    protected \DateTimeInterface $updateDate;
     protected bool $isActive;
 
     public static function tableName(): string

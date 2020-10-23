@@ -22,9 +22,9 @@ class AdditionalHouseType extends AbstractFiasModel
     protected string $name;
     protected string $shortName;
     protected string $desc;
-    protected \DateTime $startDate;
-    protected \DateTime $endDate;
-    protected \DateTime $updateDate;
+    protected \DateTimeInterface $startDate;
+    protected \DateTimeInterface $endDate;
+    protected \DateTimeInterface $updateDate;
     protected bool $isActive;
 
     public static function tableName(): string
