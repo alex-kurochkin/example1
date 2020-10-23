@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace app\services;
 
+use app\exceptions\FIAS\FiasModelException;
+use app\exceptions\FIAS\FiasSearchServiceException;
 use app\models\FIAS\AddressObject;
 use app\models\FIAS\AdministrativeHierarchy;
 
@@ -19,9 +21,18 @@ class FiasSearchService
         $this->hierarchy = $hierarchy;
     }
 
+    /**
+     * @param string $cityName
+     * @return array
+     * @throws FiasSearchServiceException
+     */
     public function searchCities(string $cityName): array
     {
-        $cities = $this->addressObject->findCity($cityName);
+        try {
+            $cities = $this->addressObject->findCity($cityName);
+        } catch (FiasModelException $e) {
+            throw new FiasSearchServiceException(__METHOD__ . ' can not find city: ' . $e->getMessage());
+        }
 
         if (!$cities) {
             return [];
@@ -48,6 +59,11 @@ class FiasSearchService
         return $result;
     }
 
+    /**
+     * @param AddressObject $daughterObject
+     * @return string
+     * @throws FiasSearchServiceException
+     */
     private function resolveFullName(AddressObject $daughterObject): string
     {
         $fullNameParts = [];
@@ -60,7 +76,11 @@ class FiasSearchService
             }
 
             /** @var AddressObject $parentObject */
-            $parentObject = $this->addressObject->findByObjectId($parentObjectId);
+            try {
+                $parentObject = $this->addressObject->findByObjectId($parentObjectId);
+            } catch (FiasModelException $e) {
+                throw new FiasSearchServiceException(__METHOD__ . ' can not resolve full name: ' . $e->getMessage());
+            }
 
             $fullNameParts[] = $parentObject->getName() . ' ' . $parentObject->getTypeName() . ',';
 

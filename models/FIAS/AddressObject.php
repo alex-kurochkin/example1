@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace app\models\FIAS;
 
+use app\exceptions\FIAS\FiasModelException;
+
 class AddressObject extends AbstractFiasModel
 {
 
@@ -113,6 +115,11 @@ class AddressObject extends AbstractFiasModel
         return $arrayInstance;
     }
 
+    /**
+     * @param string $cityName
+     * @return array
+     * @throws FiasModelException
+     */
     public function findCity(string $cityName): array
     {
         /** Probably it's good idea to move it to Repository abstract level */
@@ -125,9 +132,20 @@ class AddressObject extends AbstractFiasModel
             ->andWhere(['is_actual' => 1])
             ->all();
 
-        return $this->mapToModelArray($cities);
+        try {
+            return $this->mapToModelArray($cities);
+        } catch (\Exception $e) {
+            throw new FiasModelException(
+                __METHOD__ . ' Exception caught on array mapping to model: ' . $e->getMessage()
+            );
+        }
     }
 
+    /**
+     * @param string $objectId
+     * @return AddressObject
+     * @throws FiasModelException
+     */
     public function findByObjectId(string $objectId): AddressObject
     {
         $object = $this->query
@@ -137,6 +155,12 @@ class AddressObject extends AbstractFiasModel
             ->andWhere(['is_actual' => 1])
             ->one();
 
-        return $this->mapToModelOne($object);
+        try {
+            return $this->mapToModelOne($object);
+        } catch (\Exception $e) {
+            throw new FiasModelException(
+                __METHOD__ . ' Exception caught on array mapping to model: ' . $e->getMessage()
+            );
+        }
     }
 }

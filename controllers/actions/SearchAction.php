@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\controllers\actions;
 
 use app\controllers\ApiController;
+use app\exceptions\FIAS\FiasSearchServiceException;
 use app\models\FIAS\AddressObject;
 use app\models\FIAS\validators\CitySearchValidator;
 use app\services\FiasSearchService;
@@ -39,7 +40,11 @@ class SearchAction extends Action
             return json_encode($validator->errors, JSON_THROW_ON_ERROR);
         }
 
-        $cities = $this->searchService->searchCities($getParams['city']);
+        try {
+            $cities = $this->searchService->searchCities($getParams['city']);
+        } catch (FiasSearchServiceException $e) {
+            return json_encode($e->getMessage(), JSON_THROW_ON_ERROR);
+        }
 
         $responseArray = [];
         /** @var AddressObject $city */
