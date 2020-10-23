@@ -40,9 +40,6 @@ class SearchAction extends Action
     public function run()
     {
         try {
-
-            throw new JsonException('JsonException!!!!!!!!!');
-
             $getParams = $this->request->get();
 
             $validator = new CitySearchValidator($getParams);
