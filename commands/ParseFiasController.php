@@ -16,10 +16,10 @@ class ParseFiasController extends Controller
 {
 
     private static array $fiasToModel = [
-        'AddhouseTypes' => 'AdditionalHouseType',
         'AddrObj' => 'AddressObject',
-        'AddrObjTypes' => 'AddressObjectType',
         'AdmHierarchy' => 'AdministrativeHierarchy',
+        'AddhouseTypes' => 'AdditionalHouseType',
+        'AddrObjTypes' => 'AddressObjectType',
         'ApartmentTypes' => 'ApartmentType',
         'HouseTypes' => 'HouseType',
         'NormativeDocsKinds' => 'NormativeDocKind',
