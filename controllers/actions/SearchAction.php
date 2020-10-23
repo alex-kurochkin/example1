@@ -6,6 +6,7 @@ namespace app\controllers\actions;
 
 use app\controllers\ApiController;
 use app\models\FIAS\AddressObject;
+use app\models\FIAS\validators\CitySearchValidator;
 use app\services\FiasSearchService;
 use yii\base\Action;
 use yii\web\Request;
@@ -32,6 +33,11 @@ class SearchAction extends Action
     public function run()
     {
         $getParams = $this->request->get();
+
+        $validator = new CitySearchValidator($getParams);
+        if (!$validator->validate()) {
+            return json_encode($validator->errors, JSON_THROW_ON_ERROR);
+        }
 
         $cities = $this->searchService->searchCities($getParams['city']);
 
