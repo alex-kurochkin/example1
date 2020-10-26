@@ -23,14 +23,13 @@ class ParseFiasController extends Controller
     ];
 
     /**
+     * @param string $sourceRootDir
      * @return int
      * @throws LoaderServiceException
      */
-    public function actionIndex(): int
+    public function actionIndex(string $sourceRootDir): int
     {
         $startTime = microtime(true);
-
-        $sourceRootDir = \Yii::$app->params['fiasSourceRootDir'];
 
         foreach (glob($sourceRootDir . '/*') as $filename) {
             if (is_dir($filename) && preg_match('/^\d{2}$/', basename($filename))) {
@@ -88,6 +87,7 @@ class ParseFiasController extends Controller
     private function parseFile(string $filename, AbstractFiasModel $model): void
     {
         print 'FILE ' . $filename . PHP_EOL;
+        return;
 
         $dataLoader = new DataDbLoaderService($model);
 
@@ -109,5 +109,12 @@ class ParseFiasController extends Controller
         }
 
         return '';
+    }
+
+    public function actionGetDownloadUrl(): void
+    {
+        $urlsString = file_get_contents('https://fias.nalog.ru/WebServices/Public/GetLastDownloadFileInfo');
+        $urls = json_decode($urlsString, false, 512, JSON_THROW_ON_ERROR);
+        echo $urls->GarXMLFullURL;
     }
 }
