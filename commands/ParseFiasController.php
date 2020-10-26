@@ -112,7 +112,8 @@ class ParseFiasController extends Controller
 
     public function actionGetDownloadUrl(): void
     {
-        $urlsString = file_get_contents('https://fias.nalog.ru/WebServices/Public/GetLastDownloadFileInfo');
+        $fiasSourceInfoUrl = \Yii::$app->params['fiasSourceInfoUrl'];
+        $urlsString = file_get_contents($fiasSourceInfoUrl);
         $urls = json_decode($urlsString, false, 512, JSON_THROW_ON_ERROR);
         echo $urls->GarXMLFullURL;
     }
