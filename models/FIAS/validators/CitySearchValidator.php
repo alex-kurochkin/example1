@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace app\models\FIAS\validators;
 
-class CitySearchValidator extends AbstractFiasValidator
+use yii\base\Model;
+
+class CitySearchValidator extends Model
 {
 
     public string $city = '';
