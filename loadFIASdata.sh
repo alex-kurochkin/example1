@@ -9,9 +9,8 @@ mkdir -p $TMPDIR
 if [ ! -f $FIASFILE ]
   then
     URL=$(php -f ./yii parse-fias/get-download-url)
+    wget "$URL" -O $FIASFILE
 fi
-
-wget "$URL" -O $FIASFILE
 
 unzip $FIASFILE -d $TMPDIR
 
