@@ -13,7 +13,7 @@ class CitySearchValidator extends AbstractFiasValidator
     {
         return [
             [['city'], 'required'],
-            ['city', 'string'],
+            ['city', 'string', 'length' => [1, 250]],
         ];
     }
 }
