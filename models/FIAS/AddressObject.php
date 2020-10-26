@@ -47,7 +47,7 @@ class AddressObject extends AbstractFiasModel
 
     public static function tableName(): string
     {
-        return 'AddressObjects';
+        return 'address_objects';
     }
 
     /**

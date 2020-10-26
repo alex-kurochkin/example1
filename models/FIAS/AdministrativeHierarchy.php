@@ -45,7 +45,7 @@ class AdministrativeHierarchy extends AbstractFiasModel
 
     public static function tableName(): string
     {
-        return 'AdministrativeHierarchy';
+        return 'administrative_hierarchy';
     }
 
     public function findParentObjectId($objectId): string

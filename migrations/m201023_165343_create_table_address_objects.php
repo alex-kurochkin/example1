@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m201023_165343_create_table_AddressObjects
  */
-class m201023_165343_create_table_AddressObjects extends Migration
+class m201023_165343_create_table_address_objects extends Migration
 {
     /**
      * {@inheritdoc}
@@ -13,7 +13,7 @@ class m201023_165343_create_table_AddressObjects extends Migration
     public function safeUp()
     {
         $this->createTable(
-            'AddressObjects',
+            'address_objects',
             [
                 'id' => $this->primaryKey(),
                 'object_id' => $this->bigInteger()->notNull(),
@@ -35,25 +35,25 @@ class m201023_165343_create_table_AddressObjects extends Migration
 
         $this->createIndex(
             'idx_ao_obj_id',
-            'AddressObjects',
+            'address_objects',
             'object_id'
         );
 
         $this->createIndex(
             'idx_ao_guid',
-            'AddressObjects',
+            'address_objects',
             'object_guid'
         );
 
         $this->createIndex(
             'idx_ao_name',
-            'AddressObjects',
+            'address_objects',
             'name'
         );
 
         $this->createIndex(
             'idx_ao_level',
-            'AddressObjects',
+            'address_objects',
             'level'
         );
     }
@@ -63,7 +63,7 @@ class m201023_165343_create_table_AddressObjects extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('AddressObjects');
+        $this->dropTable('address_objects');
     }
 
     /*

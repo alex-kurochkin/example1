@@ -27,6 +27,6 @@ class ObjectLevel extends AbstractFiasModel
 
     public static function tableName(): string
     {
-        return 'ObjectLevels';
+        return 'object_levels';
     }
 }

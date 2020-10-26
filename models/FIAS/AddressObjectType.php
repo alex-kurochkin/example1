@@ -31,6 +31,6 @@ class AddressObjectType extends AbstractFiasModel
 
     public static function tableName(): string
     {
-        return 'AddressObjectTypes';
+        return 'address_object_types';
     }
 }

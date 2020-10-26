@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m201023_165401_create_table_AdministrativeHierarchy
  */
-class m201023_165401_create_table_AdministrativeHierarchy extends Migration
+class m201023_165401_create_table_administrative_hierarchy extends Migration
 {
     /**
      * {@inheritdoc}
@@ -13,7 +13,7 @@ class m201023_165401_create_table_AdministrativeHierarchy extends Migration
     public function safeUp()
     {
         $this->createTable(
-            'AdministrativeHierarchy',
+            'administrative_hierarchy',
             [
                 'id' => $this->primaryKey(),
                 'object_id' => $this->bigInteger()->notNull(),
@@ -36,19 +36,19 @@ class m201023_165401_create_table_AdministrativeHierarchy extends Migration
 
         $this->createIndex(
             'idx_ah_obj_id',
-            'AdministrativeHierarchy',
+            'administrative_hierarchy',
             'object_id'
         );
 
         $this->createIndex(
             'idx_ah_par_obj_id',
-            'AdministrativeHierarchy',
+            'administrative_hierarchy',
             'parent_object_id'
         );
 
         $this->createIndex(
             'idx_ah_reg_code',
-            'AdministrativeHierarchy',
+            'administrative_hierarchy',
             'region_code'
         );
     }
@@ -58,7 +58,7 @@ class m201023_165401_create_table_AdministrativeHierarchy extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('AdministrativeHierarchy');
+        $this->dropTable('administrative_hierarchy');
     }
 
     /*
