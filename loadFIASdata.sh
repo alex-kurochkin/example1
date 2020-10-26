@@ -15,6 +15,8 @@ wget "$URL" -O $FIASFILE
 
 unzip $FIASFILE -d $TMPDIR
 
+chmod a+r -R $TMPDIR
+
 php -f ./yii parse-fias/index $TMPDIR
 
 rm -rf $TMPDIR
