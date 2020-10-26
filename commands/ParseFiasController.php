@@ -87,7 +87,6 @@ class ParseFiasController extends Controller
     private function parseFile(string $filename, AbstractFiasModel $model): void
     {
         print 'FILE ' . $filename . PHP_EOL;
-        return;
 
         $dataLoader = new DataDbLoaderService($model);
 
