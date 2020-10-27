@@ -42,8 +42,8 @@ class SearchAction extends Action
         try {
             $getParams = $this->request->get();
 
-            $validator = new CitySearchValidator($getParams);
-            if (!$validator->validate()) {
+            $validator = new CitySearchValidator();
+            if (!$validator->load($getParams, '') || !$validator->validate()) {
                 return json_encode($validator->errors, JSON_THROW_ON_ERROR);
             }
 
