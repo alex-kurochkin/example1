@@ -58,6 +58,10 @@ class AdministrativeHierarchy extends AbstractFiasModel
             ->where(['object_id' => $objectId])
             ->one();
 
+        if (!$next) {
+            return '';
+        }
+
         if (array_key_exists('parent_object_id', $next) && $next['parent_object_id']) {
             return $next['parent_object_id'];
         }

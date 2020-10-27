@@ -18,6 +18,7 @@ abstract class AbstractFiasModel extends Model
 
     public function __construct($config = [])
     {
+        /** For self::mapToModelOne() which called repeatedly */
         $this->mapToModel = array_flip($this->map);
 
         parent::__construct($config);
