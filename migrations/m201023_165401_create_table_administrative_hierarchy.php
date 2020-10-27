@@ -19,7 +19,7 @@ class m201023_165401_create_table_administrative_hierarchy extends Migration
                 'object_id' => $this->bigInteger()->notNull(),
                 'change_id' => $this->bigInteger()->notNull(),
                 'parent_object_id' => $this->bigInteger(),
-                'region_code' => $this->string(4),
+                'region_code' => $this->smallInteger(),
                 'area_code' => $this->string(4),
                 'city_code' => $this->string(4),
                 'place_code' => $this->string(4),
