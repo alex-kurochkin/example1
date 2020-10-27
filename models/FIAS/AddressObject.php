@@ -156,7 +156,7 @@ class AddressObject extends AbstractFiasModel
      */
     public function findByObjectId(string $objectId): AddressObject
     {
-        $object = $this->query
+        $object = (new Query())
             ->from(self::tableName())
             ->where(['object_id' => $objectId])
             ->andWhere(['is_active' => 1])

@@ -9,7 +9,6 @@ use Exception;
 use RuntimeException;
 use Yii;
 use yii\base\Model;
-use yii\db\Query;
 
 abstract class AbstractFiasModel extends Model
 {
@@ -17,11 +16,8 @@ abstract class AbstractFiasModel extends Model
     protected array $map;
     protected array $mapToModel;
 
-    protected Query $query;
-
-    public function __construct(Query $query, $config = [])
+    public function __construct($config = [])
     {
-        $this->query = $query;
         $this->mapToModel = array_flip($this->map);
 
         parent::__construct($config);
@@ -35,7 +31,7 @@ abstract class AbstractFiasModel extends Model
             throw new RuntimeException('No such model found: ' . $c);
         }
 
-        return new $c(new Query); // Yii2 DI/IoC isn't work here... so sad
+        return new $c();
     }
 
     /**
