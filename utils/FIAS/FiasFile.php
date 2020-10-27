@@ -16,7 +16,7 @@ class FiasFile
          * So we use regexp to extract part of the name indicating the contents of the file.
          * Found string used to:
          *  - search FIAS parser implementation (parsers-namespace + found-string + "FiasParser") in the AbstractFiasParser
-         *  - search fias model using array of matches (see: ParseFiasController)
+         *  - search fias model using array of matches (see: FiasParseService)
          */
         preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
 
