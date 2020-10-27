@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\models\FIAS;
 
 use app\exceptions\FIAS\FiasModelException;
+use yii\db\Query;
 
 class AddressObject extends AbstractFiasModel
 {
@@ -117,20 +118,27 @@ class AddressObject extends AbstractFiasModel
 
     /**
      * @param string $cityName
+     * @param int $regionCode
      * @return array
      * @throws FiasModelException
      */
-    public function findCity(string $cityName): array
+    public function findCity(string $cityName, int $regionCode): array
     {
         /** Probably it's good idea to move it to Repository abstract level */
-        $cities = $this->query
-            ->from(self::tableName())
-            ->where(['like', 'name', $cityName . '%', false])
-            ->andWhere(['in', 'type_name', ['г', 'г.', 'с/п', 'с/с', 'пгт']])
-            ->andWhere(['level' => 5])
-            ->andWhere(['is_active' => 1])
-            ->andWhere(['is_actual' => 1])
-            ->all();
+        $query = (new Query())
+            ->from(['ao' => self::tableName()])
+            ->where(['like', 'ao.name', $cityName . '%', false])
+            ->andWhere(['in', 'ao.type_name', ['г', 'г.', 'с/п', 'с/с', 'пгт']])
+//            ->andWhere(['ao.level' => 5])
+            ->andWhere(['ao.is_active' => 1])
+            ->andWhere(['ao.is_actual' => 1]);
+
+        if ($regionCode) {
+            $query->join('INNER JOIN', ['ah' => AdministrativeHierarchy::tableName()], 'ao.object_id = ah.object_id');
+            $query->andWhere(['ah.region_code' => $regionCode]);
+        }
+
+        $cities = $query->all();
 
         try {
             return $this->mapToModelArray($cities);

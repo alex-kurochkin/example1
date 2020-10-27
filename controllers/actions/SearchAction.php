@@ -47,7 +47,9 @@ class SearchAction extends Action
                 return json_encode($validator->errors, JSON_THROW_ON_ERROR);
             }
 
-            $cities = $this->searchService->searchCities($getParams['city']);
+            $regionCode = $getParams['regionCode'] ?? 0;
+
+            $cities = $this->searchService->searchCities($getParams['city'], (int)$regionCode);
 
             $responseArray = [];
             /** @var AddressObject $city */
