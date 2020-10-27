@@ -6,7 +6,7 @@ namespace app\controllers\actions;
 
 use app\controllers\ApiController;
 use app\models\FIAS\AddressObject;
-use app\models\FIAS\validators\CitySearchValidator;
+use app\models\FIAS\validators\LocalitySearchValidator;
 use app\services\FiasSearchService;
 use Exception;
 use JsonException;
@@ -40,16 +40,20 @@ class SearchAction extends Action
     public function run()
     {
         try {
-            $getParams = $this->request->get();
+            $locality = (string)$this->request->get('city', '');
+            $regionCode = (int)$this->request->get('regionCode');
 
-            $validator = new CitySearchValidator();
-            if (!$validator->load($getParams, '') || !$validator->validate()) {
+            $validationArray = [
+                'city' => $locality,
+                'regionCode' => $regionCode,
+            ];
+
+            $validator = new LocalitySearchValidator();
+            if (!$validator->load($validationArray, '') || !$validator->validate()) {
                 return json_encode($validator->errors, JSON_THROW_ON_ERROR);
             }
 
-            $regionCode = $getParams['regionCode'] ?? 0;
-
-            $cities = $this->searchService->searchCities($getParams['city'], (int)$regionCode);
+            $cities = $this->searchService->searchLocalities($locality, $regionCode);
 
             $responseArray = [];
             /** @var AddressObject $city */
@@ -58,7 +62,7 @@ class SearchAction extends Action
             }
 
             return json_encode($responseArray, JSON_THROW_ON_ERROR);
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
 
             $this->logger->log($e->getMessage(), Logger::LEVEL_ERROR);
 

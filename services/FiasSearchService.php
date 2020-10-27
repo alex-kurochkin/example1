@@ -22,15 +22,15 @@ class FiasSearchService
     }
 
     /**
-     * @param string $cityName
+     * @param string $name
      * @param int $regionCode
      * @return array
      * @throws FiasSearchServiceException
      */
-    public function searchCities(string $cityName, int $regionCode): array
+    public function searchLocalities(string $name, int $regionCode): array
     {
         try {
-            $cities = $this->addressObject->findCity($cityName, $regionCode);
+            $cities = $this->addressObject->findLocality($name, $regionCode);
         } catch (FiasModelException $e) {
             throw new FiasSearchServiceException(__METHOD__ . ' can not find city: ' . $e->getMessage());
         }
