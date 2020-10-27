@@ -11,6 +11,13 @@ class FiasFile
 
     public static function parseEntityName(string $filename): string
     {
+        /**
+         * Fias source files (XML) have an unique part in their names.
+         * So we use regexp to extract part of the name indicating the contents of the file.
+         * Found string used to:
+         *  - search FIAS parser implementation (parsers-namespace + found-string + "FiasParser") in the AbstractFiasParser
+         *  - search fias model using array of matches (see: ParseFiasController)
+         */
         preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
 
         if (2 !== count($m)) {
