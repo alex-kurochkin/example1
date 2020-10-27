@@ -46,6 +46,24 @@ class AddressObject extends AbstractFiasModel
 
     private string $fullName;
 
+    /**
+     * Ids from address_object_types DB table which represent selection
+     * of some different types of localities.
+     * @var int[]
+     */
+    private array $localityTypeIds = [
+        6, 7, 8, 21, 22, 25, 26, 27, 28,
+        29, 30, 31, 33, 35, 36, 37, 39, 40, 41,
+        46, 49, 50, 51, 52, 53, 54, 55, 73, 76,
+        80, 81, 82, 84, 87, 88, 90, 91, 94, 95,
+        96, 97, 98, 99, 102, 103, 104, 105, 106,
+        107, 108, 109, 111, 112, 123, 125, 134, 147, 156,
+        158, 161, 170, 187, 197, 209, 241, 243, 244, 249,
+        251, 258, 269, 281, 295, 302, 329, 331, 344, 346,
+        347, 352, 353, 355, 363, 373, 377, 379, 382, 389,
+        398, 401, 404, 412, 418, 419, 423,
+    ];
+
     public static function tableName(): string
     {
         return 'address_objects';
@@ -117,21 +135,24 @@ class AddressObject extends AbstractFiasModel
     }
 
     /**
-     * @param string $cityName
+     * @param string $name
      * @param int $regionCode
-     * @return array
+     * @return self[]
      * @throws FiasModelException
      */
-    public function findCity(string $cityName, int $regionCode): array
+    public function findLocality(string $name, int $regionCode): array
     {
         /** Probably it's good idea to move it to Repository abstract level */
         $query = (new Query())
+            ->select('ao.*')
             ->from(['ao' => self::tableName()])
-            ->where(['like', 'ao.name', $cityName . '%', false])
-            ->andWhere(['in', 'ao.type_name', ['г', 'г.', 'с/п', 'с/с', 'пгт']])
-//            ->andWhere(['ao.level' => 5])
+            ->where(['like', 'ao.name', $name . '%', false])
             ->andWhere(['ao.is_active' => 1])
             ->andWhere(['ao.is_actual' => 1]);
+
+        $query->join('INNER JOIN', ['aot' => AddressObjectType::tableName()], 'ao.type_name = aot.short_name')
+            ->andWhere(['in', 'aot.id', $this->localityTypeIds])
+            ->andWhere('ao.level = aot.level');
 
         if ($regionCode) {
             $query->join('INNER JOIN', ['ah' => AdministrativeHierarchy::tableName()], 'ao.object_id = ah.object_id');
