@@ -57,6 +57,11 @@ class FiasParseService
         $parser = AbstractFiasParser::getParser($filename);
 
         foreach ($parser->parse() as $element) {
+
+            if (!$parser->checkIsACtive($element)) {
+                continue;
+            }
+
             $dataLoader->load($element);
         }
 
