@@ -62,6 +62,8 @@ class FiasParseService
                 continue;
             }
 
+            $element = $parser->trim($element);
+
             $dataLoader->load($element);
         }
 

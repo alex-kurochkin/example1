@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\services\parsers\FIAS\mappers;
 
-
 class ObjectLevelsFiasMapper extends AbstractFiasMapper
 {
 
@@ -18,9 +17,7 @@ class ObjectLevelsFiasMapper extends AbstractFiasMapper
         ],
         'NAME' => 'name',
         'SHORTNAME' => 'short_name',
-        'STARTDATE' => 'start_date',
-        'ENDDATE' => 'end_date',
-        'UPDATEDATE' => 'update_date',
+
         'ISACTIVE' => [
             'name' => 'is_active',
             'value' => [

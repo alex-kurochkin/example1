@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\services\parsers\FIAS\mappers;
 
-
 class AddrObjTypesFiasMapper extends AbstractFiasMapper
 {
 
@@ -26,9 +25,7 @@ class AddrObjTypesFiasMapper extends AbstractFiasMapper
         'NAME' => 'name',
         'SHORTNAME' => 'short_name',
         'DESC' => 'desc',
-        'STARTDATE' => 'start_date',
-        'ENDDATE' => 'end_date',
-        'UPDATEDATE' => 'update_date',
+
         'ISACTIVE' => [
             'name' => 'is_active',
             'value' => [

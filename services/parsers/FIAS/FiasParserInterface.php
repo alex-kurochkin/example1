@@ -10,4 +10,5 @@ interface FiasParserInterface
 {
     public function parse(): ?\Generator;
     public function checkIsActive(stdClass $element): bool;
+    public function trim(stdClass $element): stdClass;
 }

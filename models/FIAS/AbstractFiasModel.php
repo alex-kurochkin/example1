@@ -119,10 +119,6 @@ abstract class AbstractFiasModel extends Model
                     $value = new \DateTimeImmutable($value);
                 }
 
-                if (0 === strpos($modelFieldName, "is")) {
-                    $value = (bool)$value;
-                }
-
                 $model->$modelFieldName = $value;
             }
         }

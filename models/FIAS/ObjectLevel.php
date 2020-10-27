@@ -11,19 +11,11 @@ class ObjectLevel extends AbstractFiasModel
         'level' => 'level',
         'name' => 'name',
         'shortName' => 'short_name',
-        'startDate' => 'start_date',
-        'endDate' => 'end_date',
-        'updateDate' => 'update_date',
-        'isActive' => 'is_active',
     ];
 
     protected string $level;
     protected string $name;
     protected string $shortName;
-    protected \DateTimeInterface $startDate;
-    protected \DateTimeInterface $endDate;
-    protected \DateTimeInterface $updateDate;
-    protected bool $isActive;
 
     public static function tableName(): string
     {

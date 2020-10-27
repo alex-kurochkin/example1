@@ -20,12 +20,6 @@ class AdministrativeHierarchy extends AbstractFiasModel
         'placeCode' => 'place_code',
         'planCode' => 'plan_code',
         'streetCode' => 'street_code',
-        'prevId' => 'prev_id',
-        'nextId' => 'next_id',
-        'startDate' => 'start_date',
-        'endDate' => 'end_date',
-        'updateDate' => 'update_date',
-        'isActive' => 'is_active',
     ];
 
     protected string $id;
@@ -38,12 +32,6 @@ class AdministrativeHierarchy extends AbstractFiasModel
     protected string $placeCode;
     protected string $planCode;
     protected string $streetCode;
-    protected ?string $prevId;
-    protected ?string $nextId;
-    protected \DateTimeInterface $startDate;
-    protected \DateTimeInterface $endDate;
-    protected \DateTimeInterface $updateDate;
-    protected bool $isActive;
 
     public static function tableName(): string
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\services\parsers\FIAS\mappers;
 
-
 class AdmHierarchyFiasMapper extends AbstractFiasMapper
 {
 
@@ -43,27 +42,11 @@ class AdmHierarchyFiasMapper extends AbstractFiasMapper
         'PLACECODE' => 'place_code',
         'PLANCODE' => 'plan_code',
         'STREETCODE' => 'street_code',
-        'PREVID' => [
-            'name' => 'prev_id',
-            'value' => [
-                'type' => 'string',
-                'nullable' => true,
-            ]
-        ],
-        'NEXTID' => [
-            'name' => 'next_id',
-            'value' => [
-                'type' => 'string',
-                'nullable' => true,
-            ]
-        ],
-        'STARTDATE' => 'start_date',
-        'ENDDATE' => 'end_date',
-        'UPDATEDATE' => 'update_date',
+
         'ISACTIVE' => [
             'name' => 'is_active',
             'value' => [
-                'type' => 'int',
+                'type' => 'bool',
             ]
         ],
     ];

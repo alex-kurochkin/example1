@@ -15,4 +15,10 @@ class AddrObjTypesFiasParser extends AbstractFiasParser
     {
         return $element->is_active;
     }
+
+    public function trim(stdClass $element): stdClass
+    {
+        unset($element->is_active);
+        return $element;
+    }
 }

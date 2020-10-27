@@ -13,10 +13,6 @@ class AddressObjectType extends AbstractFiasModel
         'name' => 'name',
         'shortName' => 'short_name',
         'desc' => 'desc',
-        'startDate' => 'start_date',
-        'endDate' => 'end_date',
-        'updateDate' => 'update_date',
-        'isActive' => 'is_active',
     ];
 
     protected string $id;
@@ -24,10 +20,6 @@ class AddressObjectType extends AbstractFiasModel
     protected string $name;
     protected string $shortName;
     protected string $desc;
-    protected \DateTimeInterface $startDate;
-    protected \DateTimeInterface $endDate;
-    protected \DateTimeInterface $updateDate;
-    protected bool $isActive;
 
     public static function tableName(): string
     {

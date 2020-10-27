@@ -18,14 +18,6 @@ class AddressObject extends AbstractFiasModel
         'name' => 'name',
         'typeName' => 'type_name',
         'level' => 'level',
-        'operationTypeId' => 'operation_type_id',
-        'prevId' => 'prev_id',
-        'nextId' => 'next_id',
-        'startDate' => 'start_date',
-        'endDate' => 'end_date',
-        'updateDate' => 'update_date',
-        'isActive' => 'is_active',
-        'isActual' => 'is_actual',
     ];
 
     protected string $id;
@@ -35,14 +27,6 @@ class AddressObject extends AbstractFiasModel
     protected string $name;
     protected string $typeName;
     protected string $level;
-    protected string $operationTypeId;
-    protected ?string $prevId;
-    protected ?string $nextId;
-    protected \DateTimeInterface $startDate;
-    protected \DateTimeInterface $endDate;
-    protected \DateTimeInterface $updateDate;
-    protected bool $isActive;
-    protected bool $isActual;
 
     private string $fullName;
 

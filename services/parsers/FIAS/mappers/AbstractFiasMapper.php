@@ -54,8 +54,6 @@ abstract class AbstractFiasMapper implements FiasMapperInterface
         switch ($v['type']) {
             case 'int':
                 return (int)$value;
-            case 'float':
-                return (float)$value;
             case 'bool':
                 return $this->parseBool($value);
         }

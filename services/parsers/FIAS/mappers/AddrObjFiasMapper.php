@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\services\parsers\FIAS\mappers;
 
-
 class AddrObjFiasMapper extends AbstractFiasMapper
 {
 
@@ -40,24 +39,7 @@ class AddrObjFiasMapper extends AbstractFiasMapper
                 'nullable' => false,
             ]
         ],
-        'OPERTYPEID' => 'operation_type_id', // Text, 2 chars length
-        'PREVID' => [
-            'name' => 'prev_id',
-            'value' => [
-                'type' => 'string',
-                'nullable' => true,
-            ]
-        ],
-        'NEXTID' => [
-            'name' => 'next_id',
-            'value' => [
-                'type' => 'string',
-                'nullable' => true,
-            ]
-        ],
-        'STARTDATE' => 'start_date',
-        'ENDDATE' => 'end_date',
-        'UPDATEDATE' => 'update_date',
+
         'ISACTIVE' => [
             'name' => 'is_active',
             'value' => [
