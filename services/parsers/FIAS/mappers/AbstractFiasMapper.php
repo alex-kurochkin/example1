@@ -45,13 +45,13 @@ abstract class AbstractFiasMapper implements FiasMapperInterface
         return new $c;
     }
 
-    private function castValueType(string $value, array $v)
+    private function castValueType(string $value, array $type)
     {
-        if (!$value && isset($v['nullable']) && $v['nullable']) {
+        if (!$value && isset($type['nullable']) && $type['nullable']) {
             return null;
         }
 
-        switch ($v['type']) {
+        switch ($type['type']) {
             case 'int':
                 return (int)$value;
             case 'bool':
