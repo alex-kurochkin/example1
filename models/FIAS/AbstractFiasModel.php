@@ -9,6 +9,7 @@ use Exception;
 use RuntimeException;
 use Yii;
 use yii\base\Model;
+use yii\db\Connection;
 
 abstract class AbstractFiasModel extends Model
 {
@@ -16,10 +17,14 @@ abstract class AbstractFiasModel extends Model
     protected array $map;
     protected array $mapToModel;
 
+    private string $insertValues = '';
+    private Connection $connection;
+
     public function __construct($config = [])
     {
         /** For self::mapToModelOne() which called repeatedly */
         $this->mapToModel = array_flip($this->map);
+        $this->connection = Yii::$app->getDb(); // Optimization
 
         parent::__construct($config);
     }
@@ -35,27 +40,56 @@ abstract class AbstractFiasModel extends Model
         return new $c();
     }
 
+    public function collect(\stdClass $record): void
+    {
+        /** This code violate the architecture for the sake of optimization. */
+        $pdo = $this->connection->getSlavePdo();
+
+        foreach ($record as $k => &$value) {
+
+            if (!is_string($value)) {
+
+                if (is_null($value)) {
+                    $value = 'NULL';
+                }
+
+                continue;
+            }
+
+            $value = $pdo->quote($value);
+        }
+        unset($value);
+
+        $this->insertValues .= '(' . implode(',', (array)$record) . '),';
+    }
+
     /**
-     * @param array $records
      * @return int
      * @throws FiasModelException
      */
-    public function saveMany(array $records): int
+    public function saveMany(): int
     {
-        if (!count($records)) {
+        /** This code violate the architecture for the sake of optimization. */
+        if (!$this->insertValues) {
             return 0;
         }
 
         $columns = array_values($this->map);
+        foreach ($columns as &$column) {
+            $column = '`' . $column . '`';
+        }
+        unset($column);
+
+        $insert = 'INSERT INTO `' . static::tableName() . '` (' . implode(',', $columns) . ') VALUES ';
+        $insert .= substr($this->insertValues, 0, -1);
+
+        $this->insertValues = '';
 
         try {
-            return Yii::$app->db->createCommand()
-                ->batchInsert(
-                    static::tableName(),
-                    $columns,
-                    $records
-                )
-                ->execute();
+            $command = $this->connection->createCommand($insert);
+
+            $dataReader = $command->query();
+            return $dataReader->count();
         } catch (Exception $e) {
             throw new FiasModelException('FIAS model can not load bulk data: ' . $e->getMessage());
         }

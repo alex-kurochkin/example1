@@ -12,9 +12,9 @@ use stdClass;
 class DataDbLoaderService
 {
 
-    private int $maxWritePullCount = 2000;
+    private int $maxWriteCount = 5000;
 
-    private array $recordsPull = [];
+    private int $count = 0;
 
     private AbstractFiasModel $model;
 
@@ -41,10 +41,13 @@ class DataDbLoaderService
      */
     public function load(stdClass $record): void
     {
-        $this->recordsPull[] = $record;
+        $this->model->collect($record);
 
-        if (count($this->recordsPull) >= $this->maxWritePullCount) {
+        $this->count++;
+
+        if ($this->count >= $this->maxWriteCount) {
             $this->save();
+            $this->count = 0;
         }
     }
 
@@ -54,8 +57,7 @@ class DataDbLoaderService
     private function save(): void
     {
         try {
-            $this->model->saveMany($this->recordsPull);
-            $this->recordsPull = [];
+            $this->model->saveMany();
         } catch (Exception $e) {
             throw new LoaderServiceException(__CLASS__ . ' can not save data portion ' . $e->getMessage());
         }
