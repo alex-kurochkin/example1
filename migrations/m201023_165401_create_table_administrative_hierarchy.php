@@ -7,9 +7,7 @@ use yii\db\Migration;
  */
 class m201023_165401_create_table_administrative_hierarchy extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function safeUp()
     {
         $this->createTable(
@@ -33,46 +31,10 @@ class m201023_165401_create_table_administrative_hierarchy extends Migration
                 'is_active' => $this->boolean()->notNull(),
             ]
         );
-
-        $this->createIndex(
-            'idx_ah_obj_id',
-            'administrative_hierarchy',
-            'object_id'
-        );
-
-        $this->createIndex(
-            'idx_ah_par_obj_id',
-            'administrative_hierarchy',
-            'parent_object_id'
-        );
-
-        $this->createIndex(
-            'idx_ah_reg_code',
-            'administrative_hierarchy',
-            'region_code'
-        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('administrative_hierarchy');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m201023_165401_create_table_AdministrativeHierarchy cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

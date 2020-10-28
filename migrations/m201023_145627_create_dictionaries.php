@@ -7,9 +7,7 @@ use yii\db\Migration;
  */
 class m201023_145627_create_dictionaries extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function safeUp()
     {
         $this->createTable(
@@ -41,27 +39,9 @@ class m201023_145627_create_dictionaries extends Migration
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('address_object_types');
         $this->dropTable('object_levels');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m201023_145627_create_dictionaries cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

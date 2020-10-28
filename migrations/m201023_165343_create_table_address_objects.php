@@ -7,9 +7,7 @@ use yii\db\Migration;
  */
 class m201023_165343_create_table_address_objects extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function safeUp()
     {
         $this->createTable(
@@ -32,52 +30,10 @@ class m201023_165343_create_table_address_objects extends Migration
                 'is_actual' => $this->boolean()->notNull(),
             ]
         );
-
-        $this->createIndex(
-            'idx_ao_obj_id',
-            'address_objects',
-            'object_id'
-        );
-
-        $this->createIndex(
-            'idx_ao_guid',
-            'address_objects',
-            'object_guid'
-        );
-
-        $this->createIndex(
-            'idx_ao_name',
-            'address_objects',
-            'name'
-        );
-
-        $this->createIndex(
-            'idx_ao_level',
-            'address_objects',
-            'level'
-        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('address_objects');
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m201023_165343_create_table_AddressObjects cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
