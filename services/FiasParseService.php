@@ -8,6 +8,7 @@ use app\exceptions\FIAS\FiasParseServiceException;
 use app\exceptions\LoaderServiceException;
 use app\models\FIAS\AbstractFiasModel;
 use app\services\parsers\FIAS\AbstractFiasParser;
+use app\services\parsers\FIAS\FiasParserInterface;
 use app\utils\FIAS\FiasFile;
 
 class FiasParseService
@@ -35,8 +36,13 @@ class FiasParseService
 
         $model = AbstractFiasModel::getModel($modelName);
 
+        $fiasName = FiasFile::parseEntityName(basename($filename));
+
+        $parser = AbstractFiasParser::getParser($fiasName);
+        $parser->setReader($filename);
+
         try {
-            return $this->parseSourceFile($filename, $model);
+            return $this->parseSourceFile($parser, $model);
         } catch (LoaderServiceException $e) {
             throw new FiasParseServiceException(
                 __METHOD__ . ' Can not parse file - caught exception: ' . $e->getMessage()
@@ -45,16 +51,14 @@ class FiasParseService
     }
 
     /**
-     * @param string $filename
+     * @param FiasParserInterface $parser
      * @param AbstractFiasModel $model
      * @return int
      * @throws LoaderServiceException
      */
-    private function parseSourceFile(string $filename, AbstractFiasModel $model): int
+    private function parseSourceFile(FiasParserInterface $parser, AbstractFiasModel $model): int
     {
         $dataLoader = new DataDbLoaderService($model);
-
-        $parser = AbstractFiasParser::getParser($filename);
 
         foreach ($parser->parse() as $element) {
 

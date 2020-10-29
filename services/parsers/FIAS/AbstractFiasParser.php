@@ -23,10 +23,8 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
     protected FiasMapperInterface $mapper;
 
-    public static function getParser(string $filename): self
+    public static function getParser(string $name): self
     {
-        $name = FiasFile::parseEntityName(basename($filename));
-
         $c = __NAMESPACE__ . '\\' . $name . 'FiasParser';
 
         if (!class_exists($c)) {
@@ -35,16 +33,19 @@ abstract class AbstractFiasParser implements FiasParserInterface
 
         $mapper = AbstractFiasMapper::getMapper($name);
 
-        return new $c($filename, $mapper);
+        return new $c($mapper);
     }
 
-    protected function __construct(string $filename, FiasMapperInterface $mapper)
+    protected function __construct(FiasMapperInterface $mapper)
     {
         $this->mapper = $mapper;
-        $this->setReader($filename);
     }
 
-    private function setReader(string $filename): void
+    /**
+     * @param string $filename - complex file name: zip-filename + '#' + filename-inside-zip
+     *  example: /tmp/gar_xml.zip#69/AS_APARTMENTS_PARAMS_20201010_6553f943-550a-4ecf-87ab-556fc956c400.XML
+     */
+    public function setReader(string $filename): void
     {
         $this->reader = new XMLReader();
         $this->reader->open('zip://' . $filename);
