@@ -130,9 +130,7 @@ class AddressObject extends AbstractFiasModel
         $query = (new Query())
             ->select('ao.*')
             ->from(['ao' => self::tableName()])
-            ->where(['like', 'ao.name', $name . '%', false])
-            ->andWhere(['ao.is_active' => 1])
-            ->andWhere(['ao.is_actual' => 1]);
+            ->where(['like', 'ao.name', $name . '%', false]);
 
         $query->join('INNER JOIN', ['aot' => AddressObjectType::tableName()], 'ao.type_name = aot.short_name')
             ->andWhere(['in', 'aot.id', $this->localityTypeIds])
