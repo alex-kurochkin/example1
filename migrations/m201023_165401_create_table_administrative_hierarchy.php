@@ -23,12 +23,6 @@ class m201023_165401_create_table_administrative_hierarchy extends Migration
                 'place_code' => $this->string(4),
                 'plan_code' => $this->string(4),
                 'street_code' => $this->string(4),
-                'prev_id' => $this->bigInteger(),
-                'next_id' => $this->bigInteger(),
-                'start_date' => $this->date()->notNull(),
-                'end_date' => $this->date()->notNull(),
-                'update_date' => $this->date()->notNull(),
-                'is_active' => $this->boolean()->notNull(),
             ]
         );
     }

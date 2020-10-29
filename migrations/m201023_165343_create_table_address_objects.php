@@ -20,14 +20,6 @@ class m201023_165343_create_table_address_objects extends Migration
                 'name' => $this->string(250)->notNull(),
                 'type_name' => $this->string(50)->notNull(),
                 'level' => $this->string(10)->notNull(), // ???
-                'operation_type_id' => $this->tinyInteger()->notNull(),
-                'prev_id' => $this->bigInteger(),
-                'next_id' => $this->bigInteger(),
-                'start_date' => $this->date()->notNull(),
-                'end_date' => $this->date()->notNull(),
-                'update_date' => $this->date()->notNull(),
-                'is_active' => $this->boolean()->notNull(),
-                'is_actual' => $this->boolean()->notNull(),
             ]
         );
     }
