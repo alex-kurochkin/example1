@@ -143,10 +143,10 @@ class AddressObject extends AbstractFiasModel
             $query->andWhere(['ah.region_code' => $regionCode]);
         }
 
-        $cities = $query->all();
+        $localities = $query->all();
 
         try {
-            return $this->mapToModelArray($cities);
+            return $this->mapToModelArray($localities);
         } catch (\Exception $e) {
             throw new FiasModelException(
                 __METHOD__ . ' Exception caught on array mapping to model: ' . $e->getMessage()

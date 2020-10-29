@@ -40,11 +40,11 @@ class SearchAction extends Action
     public function run()
     {
         try {
-            $locality = (string)$this->request->get('city', '');
+            $locality = (string)$this->request->get('locality', '');
             $regionCode = (int)$this->request->get('regionCode');
 
             $validationArray = [
-                'city' => $locality,
+                'locality' => $locality,
                 'regionCode' => $regionCode,
             ];
 
@@ -53,12 +53,12 @@ class SearchAction extends Action
                 return json_encode($validator->errors, JSON_THROW_ON_ERROR);
             }
 
-            $cities = $this->searchService->searchLocalities($locality, $regionCode);
+            $localities = $this->searchService->searchLocalities($locality, $regionCode);
 
             $responseArray = [];
-            /** @var AddressObject $city */
-            foreach ($cities as $city) {
-                $responseArray[] = $city->toArray();
+            /** @var AddressObject $locality */
+            foreach ($localities as $locality) {
+                $responseArray[] = $locality->toArray();
             }
 
             return json_encode($responseArray, JSON_THROW_ON_ERROR);

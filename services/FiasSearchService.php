@@ -30,31 +30,31 @@ class FiasSearchService
     public function searchLocalities(string $name, int $regionCode): array
     {
         try {
-            $cities = $this->addressObject->findLocality($name, $regionCode);
+            $localities = $this->addressObject->findLocality($name, $regionCode);
         } catch (FiasModelException $e) {
-            throw new FiasSearchServiceException(__METHOD__ . ' can not find city: ' . $e->getMessage());
+            throw new FiasSearchServiceException(__METHOD__ . ' can not find locality: ' . $e->getMessage());
         }
 
-        if (!$cities) {
+        if (!$localities) {
             return [];
         }
 
         $result = [];
 
-        /** @var AddressObject $city */
-        foreach ($cities as $city) {
-            $city->setFullName($city->getTypeName() . ' ' . $city->getName());
+        /** @var AddressObject $locality */
+        foreach ($localities as $locality) {
+            $locality->setFullName($locality->getTypeName() . ' ' . $locality->getName());
 
-            if (1 === $city->getLevel()) {
-                $result[] = $city;
+            if (1 === $locality->getLevel()) {
+                $result[] = $locality;
                 continue;
             }
 
-            if ($parentName = $this->resolveFullName($city)) {
-                $city->setFullName($parentName . ' ' . $city->getTypeName() . ' ' . $city->getName());
+            if ($parentName = $this->resolveFullName($locality)) {
+                $locality->setFullName($parentName . ' ' . $locality->getTypeName() . ' ' . $locality->getName());
             }
 
-            $result[] = $city;
+            $result[] = $locality;
         }
 
         return $result;
