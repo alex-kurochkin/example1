@@ -11,6 +11,11 @@ class FiasFile
 
     public static function parseEntityName(string $filename): string
     {
+        /** Archive contain XSD files, but we don't process them. */
+        if ('XSD' === substr($filename, -3, 3)) {
+            return '';
+        }
+
         /**
          * Fias source files (XML) have an unique part in their names.
          * So we use regexp to extract part of the name indicating the contents of the file.
