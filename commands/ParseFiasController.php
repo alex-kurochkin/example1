@@ -6,6 +6,7 @@ namespace app\commands;
 
 use app\exceptions\FIAS\FiasParseServiceException;
 use app\services\FiasParseService;
+use app\utils\Zip;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -20,25 +21,26 @@ class ParseFiasController extends Controller
         parent::__construct($id, $module, $config);
     }
 
-    /**
-     * @param string $sourceRootDir
-     * @return int
-     * @throws FiasParseServiceException
-     */
-    public function actionIndex(string $sourceRootDir): int
+    public function actionIndex(string $zipFilename): int
     {
         $startTime = microtime(true);
 
-        foreach (glob($sourceRootDir . '/*') as $filename) {
-            if (is_dir($filename) && preg_match('/^\d{2}$/', basename($filename))) {
-                $this->parseSourceDir($filename);
+        $zip = new Zip();
+
+        try {
+            if (!$zip->open($zipFilename, \ZipArchive::RDONLY)) {
+                throw new \RuntimeException('Can not open zip file ' . $zipFilename);
             }
 
-            if (is_file($filename) && preg_match('/^.+\.xml$/i', basename($filename))) {
+            foreach ($zip->getFilename() as $fileInZip) {
+                $filename = $zipFilename . '#' . $fileInZip;
+
                 print 'FILE ' . $filename . PHP_EOL;
                 $count = $this->parseService->parseFile($filename);
                 print 'Number of items: ' . $count . PHP_EOL;
             }
+        } catch (\RuntimeException|FiasParseServiceException $e) {
+            die($e->getMessage());
         }
 
         $endTime = microtime(true);
@@ -50,21 +52,6 @@ class ParseFiasController extends Controller
         print 'Time: ' . ($endTime - $startTime) . PHP_EOL;
 
         return ExitCode::OK;
-    }
-
-    /**
-     * @param string $sourceDir
-     * @throws FiasParseServiceException
-     */
-    private function parseSourceDir(string $sourceDir): void
-    {
-        print 'DIR ' . $sourceDir . PHP_EOL;
-
-        foreach (glob($sourceDir . '/*.[xX][mM][lL]') as $filename) {
-            print 'FILE ' . $filename . PHP_EOL;
-            $count = $this->parseService->parseFile($filename);
-            print 'Number of items: ' . $count . PHP_EOL;
-        }
     }
 
     public function actionGetDownloadUrl(): void

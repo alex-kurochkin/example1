@@ -47,9 +47,7 @@ abstract class AbstractFiasParser implements FiasParserInterface
     private function setReader(string $filename): void
     {
         $this->reader = new XMLReader();
-        //$this->reader->open('compress.zlib://' . $filename);
-
-        $this->reader->open('file://' . $filename);
+        $this->reader->open('zip://' . $filename);
     }
 
     public function parse(): ?Generator

@@ -18,7 +18,7 @@ class FiasFile
          *  - search FIAS parser implementation (parsers-namespace + found-string + "FiasParser") in the AbstractFiasParser
          *  - search fias model using array of matches (see: FiasParseService)
          */
-        preg_match('/^AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
+        preg_match('/AS_(\w+)_\d{8}_[\w-]+\.XML$/i', $filename, $m);
 
         if (2 !== count($m)) {
             throw new InvalidArgumentException(__METHOD__ . ' can not parse ' . $filename);
