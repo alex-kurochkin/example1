@@ -162,8 +162,6 @@ class AddressObject extends AbstractFiasModel
         $object = (new Query())
             ->from(self::tableName())
             ->where(['object_id' => $objectId])
-            ->andWhere(['is_active' => 1])
-            ->andWhere(['is_actual' => 1])
             ->one();
 
         try {
